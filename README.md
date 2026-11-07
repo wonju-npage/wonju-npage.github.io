@@ -2,4 +2,4 @@
 
 원주에서 문장 좀 줍겠습니다 — 2026년 11월 14일 원주 구도심 바름책방에서 열린 워크숍의 아카이빙 웹사이트입니다.
 
-https://ksjin09.github.io/wonju-npage/
+https://wonju-npage.github.io/
