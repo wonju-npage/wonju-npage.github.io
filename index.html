@@ -41,7 +41,13 @@ nav{position:absolute;left:0;right:0;bottom:0;padding:0 40px;display:flex;justif
 .about h2{font-size:20px;font-weight:600;margin:0 0 16px}
 .about p{margin:0 0 14px;color:#e9e5d8}
 .soon{margin-top:28px;padding:16px 18px;border:1.5px solid var(--ink);font-size:15px}
-footer{max-width:640px;margin:0 auto;padding:24px 24px 56px;font-size:12px;color:#9c988c}
+footer{max-width:640px;margin:0 auto;padding:24px 24px 56px;font-size:12px;line-height:18px;color:#a8a598;word-break:keep-all;border-top:1px solid #2c2e33}
+footer p{margin:0 0 8px}
+footer .org{display:flex;flex-wrap:wrap;gap:4px 20px}
+footer .logos span{display:inline-flex;align-items:center;gap:18px;background:#fff;padding:8px 12px;border-radius:4px}
+footer .logos img{display:block;width:auto}
+footer .logos img:first-child{height:30px}
+footer .logos img:last-child{height:21px}
 @media (max-width:640px){
   .top{padding:16px}
   .badge{font-size:12px}
@@ -92,6 +98,11 @@ footer{max-width:640px;margin:0 auto;padding:24px 24px 56px;font-size:12px;color
   <p>참여자들이 골목에서 주운 선 · 색 · 소리 · 글을 이곳에 한 권씩 꽂아 둡니다.</p>
   <p class="soon">책장 · 선 · 색 · 소리 · 글은 정리되는 대로 차례로 열립니다.</p>
 </section>
-<footer>예술로 2026 · 바름책방</footer>
+<footer>
+  <p>위 내용은 한국예술인복지재단에서 주최하는 2026년 예술로 협업사업의 일환으로 시행되었습니다.</p>
+  <p class="org"><span>주최│한국예술인복지재단</span><span>주관│바름책방</span><span>후원│문화체육관광부</span></p>
+  <p class="logos"><span><img src="assets/logo-kawf.png" alt="한국예술인복지재단"><img src="assets/logo-mcst.png" alt="문화체육관광부"></span></p>
+  <p>선 민예원 · 색 조순호 · 소리 김수진 · 글 이성미</p>
+</footer>
 </body>
 </html>

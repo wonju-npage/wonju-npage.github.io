@@ -5,11 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>색 — 도시 산책자의 N페이지</title>
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;family=Noto+Serif+KR:wght@400;700&amp;display=swap">
 <style>
 @font-face{font-family:'Chai Hwaljjak';src:url(assets/fonts/ChaiHwaljjak-Bold.otf) format('opentype');font-weight:700;font-display:swap}
+@font-face{font-family:'SimKyungha';src:url(assets/fonts/SimKyungha.ttf) format('truetype');font-weight:400;font-display:swap}
 body{margin:0;background:#ffffff}
 a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
+.strips{display:flex;gap:0;padding-top:8px}
+.strip{flex:1 1 0;min-width:0;background:none;border:none;padding:0;font:inherit;text-align:left;color:#151613;cursor:zoom-in;display:flex;flex-direction:column;position:relative;transition:flex-grow .5s cubic-bezier(.2,.7,.2,1)}
+.strips:hover .strip,.strips:focus-within .strip{flex-grow:.55}
+.strips .strip:hover,.strips .strip:focus-visible{flex-grow:4.2;outline:none}
+.strip .sw{position:relative;display:block;height:320px;overflow:hidden}
+.strip .reveal{position:absolute;left:20px;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease;pointer-events:none;color:#3f403b}
+.strip:hover .reveal,.strip:focus-visible .reveal{opacity:1;transform:none;transition-delay:.22s}
+.strip:focus-visible .sw{outline:2px solid #151613;outline-offset:3px}
+.leg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px 24px;padding-top:8px}
+.leg .who{background:none;border:none;padding:10px 0;min-height:44px;font:inherit;font-size:14px;line-height:20px;text-align:left;color:#6b6c66;cursor:zoom-in;display:flex;align-items:center;gap:10px;transition:color .2s ease}
+.leg .who .dot{flex-shrink:0;width:14px;height:14px;border:1px solid #e2e0da;transition:transform .2s ease}
+.leg .who:hover,.leg .who:focus-visible{color:#151613;font-weight:700;outline:none}
+.cwrap:has(.leg .who:hover) .strip,.cwrap:has(.leg .who:focus-visible) .strip{flex-grow:.55}
+.cwrap:has(.strip:nth-child(1):hover) .leg .who:nth-child(1),.cwrap:has(.strip:nth-child(1):focus-visible) .leg .who:nth-child(1){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(1):hover) .leg .who:nth-child(1) .dot,.cwrap:has(.strip:nth-child(1):focus-visible) .leg .who:nth-child(1) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(1):hover) .strip:nth-child(1),.cwrap:has(.leg .who:nth-child(1):focus-visible) .strip:nth-child(1){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(1):hover) .strip:nth-child(1) .reveal,.cwrap:has(.leg .who:nth-child(1):focus-visible) .strip:nth-child(1) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(2):hover) .leg .who:nth-child(2),.cwrap:has(.strip:nth-child(2):focus-visible) .leg .who:nth-child(2){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(2):hover) .leg .who:nth-child(2) .dot,.cwrap:has(.strip:nth-child(2):focus-visible) .leg .who:nth-child(2) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(2):hover) .strip:nth-child(2),.cwrap:has(.leg .who:nth-child(2):focus-visible) .strip:nth-child(2){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(2):hover) .strip:nth-child(2) .reveal,.cwrap:has(.leg .who:nth-child(2):focus-visible) .strip:nth-child(2) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(3):hover) .leg .who:nth-child(3),.cwrap:has(.strip:nth-child(3):focus-visible) .leg .who:nth-child(3){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(3):hover) .leg .who:nth-child(3) .dot,.cwrap:has(.strip:nth-child(3):focus-visible) .leg .who:nth-child(3) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(3):hover) .strip:nth-child(3),.cwrap:has(.leg .who:nth-child(3):focus-visible) .strip:nth-child(3){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(3):hover) .strip:nth-child(3) .reveal,.cwrap:has(.leg .who:nth-child(3):focus-visible) .strip:nth-child(3) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(4):hover) .leg .who:nth-child(4),.cwrap:has(.strip:nth-child(4):focus-visible) .leg .who:nth-child(4){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(4):hover) .leg .who:nth-child(4) .dot,.cwrap:has(.strip:nth-child(4):focus-visible) .leg .who:nth-child(4) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(4):hover) .strip:nth-child(4),.cwrap:has(.leg .who:nth-child(4):focus-visible) .strip:nth-child(4){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(4):hover) .strip:nth-child(4) .reveal,.cwrap:has(.leg .who:nth-child(4):focus-visible) .strip:nth-child(4) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(5):hover) .leg .who:nth-child(5),.cwrap:has(.strip:nth-child(5):focus-visible) .leg .who:nth-child(5){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(5):hover) .leg .who:nth-child(5) .dot,.cwrap:has(.strip:nth-child(5):focus-visible) .leg .who:nth-child(5) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(5):hover) .strip:nth-child(5),.cwrap:has(.leg .who:nth-child(5):focus-visible) .strip:nth-child(5){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(5):hover) .strip:nth-child(5) .reveal,.cwrap:has(.leg .who:nth-child(5):focus-visible) .strip:nth-child(5) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(6):hover) .leg .who:nth-child(6),.cwrap:has(.strip:nth-child(6):focus-visible) .leg .who:nth-child(6){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(6):hover) .leg .who:nth-child(6) .dot,.cwrap:has(.strip:nth-child(6):focus-visible) .leg .who:nth-child(6) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(6):hover) .strip:nth-child(6),.cwrap:has(.leg .who:nth-child(6):focus-visible) .strip:nth-child(6){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(6):hover) .strip:nth-child(6) .reveal,.cwrap:has(.leg .who:nth-child(6):focus-visible) .strip:nth-child(6) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(7):hover) .leg .who:nth-child(7),.cwrap:has(.strip:nth-child(7):focus-visible) .leg .who:nth-child(7){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(7):hover) .leg .who:nth-child(7) .dot,.cwrap:has(.strip:nth-child(7):focus-visible) .leg .who:nth-child(7) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(7):hover) .strip:nth-child(7),.cwrap:has(.leg .who:nth-child(7):focus-visible) .strip:nth-child(7){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(7):hover) .strip:nth-child(7) .reveal,.cwrap:has(.leg .who:nth-child(7):focus-visible) .strip:nth-child(7) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(8):hover) .leg .who:nth-child(8),.cwrap:has(.strip:nth-child(8):focus-visible) .leg .who:nth-child(8){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(8):hover) .leg .who:nth-child(8) .dot,.cwrap:has(.strip:nth-child(8):focus-visible) .leg .who:nth-child(8) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(8):hover) .strip:nth-child(8),.cwrap:has(.leg .who:nth-child(8):focus-visible) .strip:nth-child(8){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(8):hover) .strip:nth-child(8) .reveal,.cwrap:has(.leg .who:nth-child(8):focus-visible) .strip:nth-child(8) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(9):hover) .leg .who:nth-child(9),.cwrap:has(.strip:nth-child(9):focus-visible) .leg .who:nth-child(9){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(9):hover) .leg .who:nth-child(9) .dot,.cwrap:has(.strip:nth-child(9):focus-visible) .leg .who:nth-child(9) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(9):hover) .strip:nth-child(9),.cwrap:has(.leg .who:nth-child(9):focus-visible) .strip:nth-child(9){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(9):hover) .strip:nth-child(9) .reveal,.cwrap:has(.leg .who:nth-child(9):focus-visible) .strip:nth-child(9) .reveal{opacity:1;transform:none;transition-delay:.22s}
+.cwrap:has(.strip:nth-child(10):hover) .leg .who:nth-child(10),.cwrap:has(.strip:nth-child(10):focus-visible) .leg .who:nth-child(10){color:#151613;font-weight:700}
+.cwrap:has(.strip:nth-child(10):hover) .leg .who:nth-child(10) .dot,.cwrap:has(.strip:nth-child(10):focus-visible) .leg .who:nth-child(10) .dot{transform:scale(1.35)}
+.cwrap:has(.leg .who:nth-child(10):hover) .strip:nth-child(10),.cwrap:has(.leg .who:nth-child(10):focus-visible) .strip:nth-child(10){flex-grow:4.2}
+.cwrap:has(.leg .who:nth-child(10):hover) .strip:nth-child(10) .reveal,.cwrap:has(.leg .who:nth-child(10):focus-visible) .strip:nth-child(10) .reveal{opacity:1;transform:none;transition-delay:.22s}
+@media (max-width:640px){.leg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .strips{overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;padding:16px 20px 12px;margin:0 -20px;scroll-padding-left:20px}
+  .strip,.strips:hover .strip,.strips:focus-within .strip,.strips .strip:hover{flex:0 0 42%;scroll-snap-align:start}
+  .strip .sw{height:220px}
+  .strip .reveal{display:none}
+}
+.pg{background:none;border:none;font:inherit;color:#6b6c66;cursor:pointer;padding:12px 0;min-height:44px}
+.pg:hover,.pg:focus-visible{color:#151613;text-decoration:underline;text-underline-offset:4px;outline:none}
+.x{background:none;border:none;cursor:pointer;color:#151613}
+.x:hover,.x:focus-visible{background:#f1efea;outline:none}
 </style>
 <style>
 body{word-break:keep-all}
@@ -20,7 +85,6 @@ body{word-break:keep-all}
   main > div:has(> div > button.win) > span:last-child{display:none}
   div:has(> button.win){gap:5px !important;flex:1;min-width:0}
   button.win{width:auto !important;flex:1;min-width:0;height:56px !important}
-  footer p{font-size:22px !important}
   main > div:has(> div > button.chip){grid-template-columns:1fr !important;gap:8px !important}
   main > div:has(> div > button.chip) > span{padding-top:0 !important}
   button.chip{padding:8px 12px !important;font-size:14px !important;min-height:44px}
@@ -79,14 +143,30 @@ function __at(root, p){ let el=root; for (const i of p){ el = el && el.children[
 
 
 class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { open: null }; }
   renderVals() {
+    const N = 10;
     const pad = (n) => String(n).padStart(2, '0');
     const greys = ['#e4e1da', '#d9d7d1', '#cfccc4', '#c4c1b9', '#b9b6ae', '#aeaba3', '#a3a098', '#98958d', '#8d8a82', '#827f77'];
-    return { people: Array.from({ length: 10 }, (_, i) => ({ num: pad(i + 1), swatch: greys[i], label: '참여자 ' + pad(i + 1) + '의 색 — 책 펼치기' })) };
+    const o = this.state.open;
+    const i = o === null ? 0 : o;
+    return {
+      people: Array.from({ length: N }, (_, k) => ({
+        num: pad(k + 1),
+        swatch: greys[k],
+        label: '참여자 ' + pad(k + 1) + '의 색 크게 보기',
+        open: () => this.setState({ open: k })
+      })),
+      isOpen: o !== null,
+      cur: { num: pad(i + 1), swatch: greys[i], prevNum: pad(((i + N - 1) % N) + 1), nextNum: pad(((i + 1) % N) + 1) },
+      close: () => this.setState({ open: null }),
+      prev: () => this.setState({ open: (i + N - 1) % N }),
+      next: () => this.setState({ open: (i + 1) % N })
+    };
   }
 }
 
-const TPL = "\n\n<div style=\"min-height: 1000px; box-sizing: border-box; background: #ffffff; color: #151613; font-family: 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif; padding: 24px 40px 64px; display: flex; flex-direction: column; gap: 56px;\">\n  <header style=\"display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px;\">\n    <div style=\"display: flex; flex-direction: column; gap: 4px;\">\n      <a href=\"./\" style=\"font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.5px; color: #151613;\">도시 산책자의 N페이지</a>\n      <p style=\"margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6b6c66;\">원주에서 문장 좀 줍겠습니다 · 2026. 11. 14.</p>\n    </div>\n    <nav aria-label=\"아카이브\" style=\"display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; font-weight: 500; padding-top: 10px;\">\n      <a href=\"./\">홈</a>\n      <a href=\"shelf.html\">책장</a>\n      <a href=\"lines.html\">선</a>\n      <a href=\"colors.html\" aria-current=\"page\" style=\"color: #151613; text-decoration: underline; text-underline-offset: 4px;\">색</a>\n      <a href=\"sound.html\">소리</a>\n      <a href=\"texts.html\">글</a>\n    </nav>\n  </header>\n\n  <section aria-labelledby=\"h-colors\" style=\"display: flex; flex-direction: column; gap: 24px; max-width: 1360px; width: 100%;\">\n    <div style=\"display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px;\">\n      <h1 id=\"h-colors\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">색</h1>\n      <p style=\"margin: 0; font-size: 15px; line-height: 24px; color: #6b6c66;\">11월 오후의 골목에서 만든 열 가지 색과, 그 색이 무엇인지. 은유 · 담당 작가 조순호</p>\n    </div>\n    <div style=\"display: grid; grid-template-columns: repeat(auto-fill, minmax(min(120px, 40vw), 1fr)); gap: 0;\">\n      <sc-for list=\"{{people}}\" as=\"p\" hint-placeholder-count=\"10\">\n        <a href=\"book.html#{{p.num}}\" aria-label=\"{{p.label}}\" style=\"display: flex; flex-direction: column; color: #151613;\">\n          <div style=\"height: 280px; background: {{p.swatch}};\"></div>\n          <div style=\"display: flex; flex-direction: column; gap: 4px; padding: 12px 8px 0 0;\">\n            <span style=\"font-family: 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 16px; line-height: 1.4; color: #6b6c66;\">[색 이름]</span>\n            <span style=\"font-size: 10px; line-height: 12px; font-weight: 500; letter-spacing: 0.4px; color: #6b6c66;\">{{p.num}}</span>\n          </div>\n        </a>\n      </sc-for>\n    </div>\n    <div style=\"display: grid; grid-template-columns: repeat(auto-fill, minmax(min(400px, 80vw), 1fr)); gap: 16px 48px; padding-top: 16px;\">\n      <sc-for list=\"{{people}}\" as=\"p\" hint-placeholder-count=\"10\">\n        <p style=\"margin: 0; display: flex; align-items: baseline; gap: 12px;\">\n          <span aria-hidden=\"true\" style=\"flex-shrink: 0; width: 14px; height: 14px; background: {{p.swatch}}; border: 1px solid #e2e0da;\"></span>\n          <span style=\"font-family: 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 17px; line-height: 1.55; letter-spacing: -0.2px; color: #6b6c66;\">[이 색은 ~이다 — 은유 문장]</span>\n          <span style=\"flex-shrink: 0; font-size: 10px; line-height: 12px; font-weight: 500; letter-spacing: 0.4px; color: #6b6c66;\">{{p.num}}</span>\n        </p>\n      </sc-for>\n    </div>\n  </section>\n\n  <nav aria-label=\"이어서 보기\" style=\"display: flex; justify-content: space-between; max-width: 1360px; width: 100%; padding-top: 24px; border-top: 1px solid #e2e0da; font-size: 13px; font-weight: 500;\">\n    <a href=\"lines.html\" style=\"padding: 12px 0;\">← 선</a>\n    <a href=\"sound.html\" style=\"padding: 12px 0;\">소리 →</a>\n  </nav>\n</div>\n";
+const TPL = "\n\n<div style=\"min-height: 1000px; max-width: 1440px; margin: 0 auto; box-sizing: border-box; background: #ffffff; color: #151613; font-family: 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif; padding: 24px 40px 64px; display: flex; flex-direction: column; gap: 56px; word-break: keep-all;\">\n  <header style=\"display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px;\">\n    <div style=\"display: flex; flex-direction: column; gap: 4px;\">\n      <a href=\"./\" style=\"font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.5px; color: #151613;\">도시 산책자의 N페이지</a>\n      <p style=\"margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6b6c66;\">원주에서 문장 좀 줍겠습니다 · 2026. 11. 14.</p>\n    </div>\n    <nav aria-label=\"아카이브\" style=\"display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; font-weight: 500; padding-top: 10px;\">\n      <a href=\"./\">홈</a>\n      <a href=\"shelf.html\">책장</a>\n      <a href=\"lines.html\">선</a>\n      <a href=\"colors.html\" aria-current=\"page\" style=\"color: #151613; text-decoration: underline; text-underline-offset: 4px;\">색</a>\n      <a href=\"sound.html\">소리</a>\n      <a href=\"texts.html\">글</a>\n    </nav>\n  </header>\n\n  <section class=\"cwrap\" aria-labelledby=\"h-colors\" style=\"display: flex; flex-direction: column; gap: 24px; max-width: 1360px; width: 100%;\">\n    <div style=\"display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px;\">\n      <h1 id=\"h-colors\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">색</h1>\n      <p style=\"margin: 0; font-size: 15px; line-height: 24px; color: #6b6c66;\">11월 오후의 골목에서 만든 열 가지 색과, 그 색이 무엇인지. 은유 · 담당 작가 조순호</p>\n    </div>\n    <p style=\"margin: 0; font-size: 13px; line-height: 18px; color: #6b6c66;\">색에 손을 대면 나머지가 비켜서고, 누르면 문장과 함께 크게 펼쳐집니다.</p>\n    <div class=\"strips\" aria-label=\"열 가지 색\">\n      <sc-for list=\"{{people}}\" as=\"p\" hint-placeholder-count=\"10\">\n        <button class=\"strip\" type=\"button\" aria-label=\"{{p.label}}\" aria-haspopup=\"dialog\" onClick=\"{{p.open}}\">\n          <span class=\"sw\" style=\"background: {{p.swatch}};\">\n            <span class=\"reveal\" aria-hidden=\"true\">\n              <span style=\"font-family: 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 22px; line-height: 1.4;\">[색 이름]</span>\n            </span>\n          </span>\n        </button>\n      </sc-for>\n    </div>\n    <div class=\"leg\" aria-label=\"누구의 색인지\">\n      <sc-for list=\"{{people}}\" as=\"p\" hint-placeholder-count=\"10\">\n        <button class=\"who\" type=\"button\" aria-haspopup=\"dialog\" onClick=\"{{p.open}}\"><span class=\"dot\" aria-hidden=\"true\" style=\"background: {{p.swatch}};\"></span>참여자 {{p.num}}이 발견한 색</button>\n      </sc-for>\n    </div>\n  </section>\n\n  <nav aria-label=\"이어서 보기\" style=\"display: flex; justify-content: space-between; max-width: 1360px; width: 100%; padding-top: 24px; border-top: 1px solid #e2e0da; font-size: 13px; font-weight: 500;\">\n    <a href=\"lines.html\" style=\"padding: 12px 0;\">← 선</a>\n    <a href=\"sound.html\" style=\"padding: 12px 0;\">소리 →</a>\n  </nav>\n  <footer class=\"credit\" style=\"display: flex; flex-direction: column; gap: 8px; max-width: 1360px; width: 100%; padding-top: 20px; border-top: 1px solid #e2e0da; font-size: 12px; line-height: 18px; color: #6b6c66;\">\n    <p style=\"margin: 0;\">위 내용은 한국예술인복지재단에서 주최하는 2026년 예술로 협업사업의 일환으로 시행되었습니다.</p>\n    <p style=\"margin: 0; display: flex; flex-wrap: wrap; gap: 4px 24px;\"><span>주최│한국예술인복지재단</span><span>주관│바름책방</span><span>후원│문화체육관광부</span></p>\n    <p style=\"margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px;\"><span style=\"display: inline-flex; align-items: center; gap: 20px; padding: 4px 0;\"><img src=\"assets/logo-kawf.png\" alt=\"한국예술인복지재단\" style=\"display: block; height: 32px; width: auto;\"><img src=\"assets/logo-mcst.png\" alt=\"문화체육관광부\" style=\"display: block; height: 22px; width: auto;\"></span></p>\n    <p style=\"margin: 0;\">선 민예원 · 색 조순호 · 소리 김수진 · 글 이성미</p>\n  </footer>\n\n  <sc-if value=\"{{isOpen}}\">\n    <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"dlg-color\" style=\"position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 32px; box-sizing: border-box;\">\n      <button type=\"button\" aria-label=\"닫기\" onClick=\"{{close}}\" style=\"position: absolute; inset: 0; border: none; padding: 0; background: rgba(21, 22, 19, 0.72); cursor: zoom-out;\"></button>\n      <div style=\"position: relative; width: min(1000px, 100%); max-height: 100%; overflow: auto; box-sizing: border-box; background: #ffffff; padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 32px 40px; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);\">\n        <div style=\"aspect-ratio: 3 / 4; background: {{cur.swatch}}; display: flex; align-items: flex-end; justify-content: flex-start; padding: 12px; box-sizing: border-box;\">\n          <span style=\"font-size: 12px; line-height: 16px; color: #3f403b;\">[조색한 색 이미지]</span>\n        </div>\n        <div style=\"display: flex; flex-direction: column; gap: 16px; min-width: 0;\">\n          <p style=\"margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.2px; color: #6b6c66;\">참여자 {{cur.num}} · [참여자 이름]</p>\n          <p style=\"margin: 0; font-family: 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 22px; line-height: 1.4; color: #6b6c66;\">[색 이름]</p>\n          <h2 id=\"dlg-color\" style=\"margin: 0; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 30px; line-height: 1.5; font-weight: 400; color: #6b6c66;\">[이 색은 ~이다 — 은유 문장]</h2>\n          <p style=\"margin: 0; font-size: 12px; line-height: 16px; color: #6b6c66;\">은유 · 담당 작가 조순호</p>\n          <a href=\"book.html#{{cur.num}}\" style=\"align-self: flex-start; padding: 12px 0; font-size: 13px; font-weight: 600; color: #151613;\">이 사람의 책 펼치기 →</a>\n          <div style=\"margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid #e2e0da; font-size: 13px; font-weight: 500;\">\n            <button class=\"pg\" type=\"button\" onClick=\"{{prev}}\">← {{cur.prevNum}}</button>\n            <span aria-live=\"polite\" style=\"font-size: 12px; letter-spacing: 0.4px; color: #6b6c66;\">{{cur.num}} / 10</span>\n            <button class=\"pg\" type=\"button\" onClick=\"{{next}}\">{{cur.nextNum}} →</button>\n          </div>\n        </div>\n        <button class=\"x\" type=\"button\" aria-label=\"닫기\" onClick=\"{{close}}\" style=\"position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;\">\n          <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6L6 18\"></path></svg>\n        </button>\n      </div>\n    </div>\n  </sc-if>\n</div>\n";
 const c = new Component({});
 
 const root = document.getElementById('root');
