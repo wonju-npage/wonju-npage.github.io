@@ -55,7 +55,6 @@ a{color:#151613;text-decoration:none}a:hover{color:#151613;text-decoration:under
 .viz{position:relative;height:210px;border-radius:6px;overflow:hidden;background:rgba(255,255,255,.55)}
 .go{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:6px;background:#151613;color:#ffffff;font-size:13px;font-weight:600}
 .go:hover{color:#ffffff;text-decoration:none;background:#33352f}
-.draw{stroke-dasharray:700;stroke-dashoffset:700;animation:draw 5.5s ease-in-out infinite}
 @keyframes draw{0%{stroke-dashoffset:700}50%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-700}}
 .dot{position:absolute;width:16px;height:16px;border-radius:50%;border:1px solid #151613;box-sizing:border-box;animation:drift ease-in-out infinite alternate}
 @keyframes drift{from{transform:translate(0,0)}to{transform:translate(var(--dx),var(--dy))}}
@@ -234,14 +233,8 @@ html,body{margin:0;background:#f6f4ef}
         <span class="num" aria-hidden="true">1</span>
         <article class="card" aria-labelledby="st1" style="background: #e9eee8;">
           <h3 id="st1" style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 500;"><b style="font-weight: 700;">선</b> · 직유</h3>
-          <div class="viz"><svg viewBox="0 0 560 210" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-              <rect x="206" y="44" width="148" height="112" fill="#f1efea" stroke="#151613" stroke-width="1.5"></rect>
-              <path d="M206 120 C 236 104, 262 96, 286 104 S 330 128, 354 98" fill="none" stroke="#8d8f86" stroke-width="3" stroke-linecap="round"></path>
-              <path class="draw" d="M354 98 C 392 70, 420 132, 462 108 S 520 60, 548 86" fill="none" stroke="#151613" stroke-width="3" stroke-linecap="round"></path>
-              <path class="draw" style="animation-delay: .5s;" d="M206 120 C 176 138, 150 92, 112 104 S 50 150, 14 122" fill="none" stroke="#151613" stroke-width="3" stroke-linecap="round"></path>
-              <text x="280" y="176" text-anchor="middle" font-size="11" fill="#6b6c66">사진 틀</text>
-            </svg></div>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7;">담벼락 · 지붕 · 창틀에서 선을 주워 사진 틀 바깥으로 이어 그리고, 그 선이 무엇을 닮았는지 적었습니다.</p>
+          <div class="viz"><svg viewBox="0 0 560 210" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M27.9 177.7 L49.6 177.2 L70.7 177.8 L91.6 178.0 L91.2 157.9 L91.2 137.3 L91.9 118.3 L79.7 117.8 L95.6 108.1 L110.8 96.5 L126.4 85.6 L142.0 96.3 L156.0 106.6 L171.8 118.3 L159.7 118.1 L160.3 137.8 L160.1 157.2 L159.6 177.8 L146.1 177.9 L145.9 148.1 L127.0 147.8 L127.2 178.2 L147.8 178.1 L169.5 178.7 L191.2 177.6 L212.4 177.7 L211.9 159.8 L211.4 140.6 L211.2 122.3 L212.5 103.5 L212.7 84.3 L212.2 66.1 L200.1 74.0 L224.3 74.4 L212.0 66.1 L213.6 72.2 L238.3 82.9 L262.3 91.8 L282.8 98.3 L303.6 104.0 L323.4 103.3 L343.6 104.2 L365.3 103.5 L387.8 104.7 L409.2 103.9 L432.0 104.3 L432.6 123.2 L431.6 140.8 L431.7 160.2 L432.4 177.7 L397.7 177.8 L397.8 150.0 L414.1 149.8 L413.6 129.9 L387.8 130.1 L362.4 130.2 L362.0 150.1 L380.3 149.2 L398.3 150.2 L398.3 178.2 L417.3 177.8 L436.3 178.2 L455.7 177.2 L475.8 177.7 L489.9 159.6 L503.6 177.7 L534.0 178.0" pathLength="1" fill="none" stroke="#151613" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1" stroke-dashoffset="0"><animate attributeName="stroke-dashoffset" dur="8s" repeatCount="indefinite" values="1;0;0;-1" keyTimes="0;.66;.86;1"></animate></path><circle r="4.5" fill="#151613"><animateMotion dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1;1" keyTimes="0;.66;.86;1" path="M27.9 177.7 L49.6 177.2 L70.7 177.8 L91.6 178.0 L91.2 157.9 L91.2 137.3 L91.9 118.3 L79.7 117.8 L95.6 108.1 L110.8 96.5 L126.4 85.6 L142.0 96.3 L156.0 106.6 L171.8 118.3 L159.7 118.1 L160.3 137.8 L160.1 157.2 L159.6 177.8 L146.1 177.9 L145.9 148.1 L127.0 147.8 L127.2 178.2 L147.8 178.1 L169.5 178.7 L191.2 177.6 L212.4 177.7 L211.9 159.8 L211.4 140.6 L211.2 122.3 L212.5 103.5 L212.7 84.3 L212.2 66.1 L200.1 74.0 L224.3 74.4 L212.0 66.1 L213.6 72.2 L238.3 82.9 L262.3 91.8 L282.8 98.3 L303.6 104.0 L323.4 103.3 L343.6 104.2 L365.3 103.5 L387.8 104.7 L409.2 103.9 L432.0 104.3 L432.6 123.2 L431.6 140.8 L431.7 160.2 L432.4 177.7 L397.7 177.8 L397.8 150.0 L414.1 149.8 L413.6 129.9 L387.8 130.1 L362.4 130.2 L362.0 150.1 L380.3 149.2 L398.3 150.2 L398.3 178.2 L417.3 177.8 L436.3 178.2 L455.7 177.2 L475.8 177.7 L489.9 159.6 L503.6 177.7 L534.0 178.0"></animateMotion><animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;1" keyTimes="0;.66;.7;.98;1"></animate></circle><text x="280" y="204" text-anchor="middle" font-size="11" fill="#6b6c66">손을 떼지 않고 한 줄로</text></svg></div>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7;">가까이에서 하나, 멀리서 하나 마음에 드는 선을 찾아 종이에서 손을 떼지 않고 한 줄로 그리고, 그 선이 무엇을 닮았는지 적었습니다.</p>
           <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; font-size: 13px; color: #4a4b46;">
             <span>담당 작가 민예원</span>
             <a class="go" href="lines.html">선 보기 →</a>
@@ -252,8 +245,8 @@ html,body{margin:0;background:#f6f4ef}
         <span class="num" aria-hidden="true">2</span>
         <article class="card" aria-labelledby="st2" style="background: #f1ecf1;">
           <h3 id="st2" style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 500;"><b style="font-weight: 700;">색</b> · 은유</h3>
-          <div class="viz"><div aria-hidden="true" style="position: absolute; inset: 0 34% 0 0;"><span class="dot" style="left: 8%; top: 18%; background: #c7b29b; animation-duration: 3.2s; animation-delay: -0.0s; --dx: 10px; --dy: 8px;"></span><span class="dot" style="left: 22%; top: 62%; background: #8ea596; animation-duration: 3.9s; animation-delay: -0.4s; --dx: -12px; --dy: 12px;"></span><span class="dot" style="left: 36%; top: 28%; background: #d49a7c; animation-duration: 4.6s; animation-delay: -0.8s; --dx: 14px; --dy: -16px;"></span><span class="dot" style="left: 48%; top: 70%; background: #a9bbcf; animation-duration: 5.3s; animation-delay: -1.2s; --dx: -16px; --dy: -20px;"></span><span class="dot" style="left: 14%; top: 80%; background: #e3cf6e; animation-duration: 6.0s; animation-delay: -1.6s; --dx: 18px; --dy: 8px;"></span><span class="dot" style="left: 62%; top: 22%; background: #b6a2c7; animation-duration: 3.2s; animation-delay: -2.0s; --dx: -20px; --dy: 12px;"></span><span class="dot" style="left: 72%; top: 64%; background: #9db88a; animation-duration: 3.9s; animation-delay: -2.4s; --dx: 22px; --dy: -16px;"></span><span class="dot" style="left: 84%; top: 30%; background: #dcc0b0; animation-duration: 4.6s; animation-delay: -2.8s; --dx: -24px; --dy: -20px;"></span><span class="dot" style="left: 56%; top: 46%; background: #7f8e9c; animation-duration: 5.3s; animation-delay: -3.2s; --dx: 26px; --dy: 8px;"></span><span class="dot" style="left: 30%; top: 46%; background: #e8aea0; animation-duration: 6.0s; animation-delay: -3.6s; --dx: -28px; --dy: 12px;"></span></div><div aria-hidden="true" style="position: absolute; right: 7%; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px;"><span class="mix" style="display: block; width: 96px; height: 128px; border: 1px solid #151613; box-sizing: border-box;"></span><span style="font-size: 11px; color: #6b6c66;">조색 중</span></div></div>
-          <p style="margin: 0; font-size: 15px; line-height: 1.7;">골목에서 마음에 남은 색을 찾아 직접 조색하고, 그 색이 무엇인지 은유로 옮겼습니다.</p>
+          <div class="viz"><div aria-hidden="true" style="position: absolute; inset: 0 34% 0 0;"><span class="dot" style="left: 8%; top: 18%; background: #c7b29b; animation-duration: 3.2s; animation-delay: -0.0s; --dx: 10px; --dy: 8px;"></span><span class="dot" style="left: 22%; top: 62%; background: #8ea596; animation-duration: 3.9s; animation-delay: -0.4s; --dx: -12px; --dy: 12px;"></span><span class="dot" style="left: 36%; top: 28%; background: #d49a7c; animation-duration: 4.6s; animation-delay: -0.8s; --dx: 14px; --dy: -16px;"></span><span class="dot" style="left: 48%; top: 70%; background: #a9bbcf; animation-duration: 5.3s; animation-delay: -1.2s; --dx: -16px; --dy: -20px;"></span><span class="dot" style="left: 14%; top: 80%; background: #e3cf6e; animation-duration: 6.0s; animation-delay: -1.6s; --dx: 18px; --dy: 8px;"></span><span class="dot" style="left: 62%; top: 22%; background: #b6a2c7; animation-duration: 3.2s; animation-delay: -2.0s; --dx: -20px; --dy: 12px;"></span><span class="dot" style="left: 72%; top: 64%; background: #9db88a; animation-duration: 3.9s; animation-delay: -2.4s; --dx: 22px; --dy: -16px;"></span><span class="dot" style="left: 84%; top: 30%; background: #dcc0b0; animation-duration: 4.6s; animation-delay: -2.8s; --dx: -24px; --dy: -20px;"></span><span class="dot" style="left: 56%; top: 46%; background: #7f8e9c; animation-duration: 5.3s; animation-delay: -3.2s; --dx: 26px; --dy: 8px;"></span><span class="dot" style="left: 30%; top: 46%; background: #e8aea0; animation-duration: 6.0s; animation-delay: -3.6s; --dx: -28px; --dy: 12px;"></span></div><div aria-hidden="true" style="position: absolute; right: 7%; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px;"><span class="mix" style="display: block; width: 96px; height: 128px; border: 1px solid #151613; box-sizing: border-box;"></span><span style="font-size: 11px; color: #6b6c66;">색 · 질감</span></div></div>
+          <p style="margin: 0; font-size: 15px; line-height: 1.7;">한 사물 안에 겹친 밝은 색 · 그림자의 색 · 그 경계의 색과 표면의 질감을 들여다보고 은유 한 줄로 옮겼습니다. 그 문장은 조순호 작가가 다시 색으로 만들었습니다.</p>
           <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; font-size: 13px; color: #4a4b46;">
             <span>담당 작가 조순호</span>
             <a class="go" href="colors.html">색 보기 →</a>
@@ -300,80 +293,80 @@ html,body{margin:0;background:#f6f4ef}
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #c7b29b;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 190 C 40 120, 90 230, 140 160 S 200 90, 230 120" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #c7b29b;"></span>참여자 01 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #c7b29b;"></span>참여자 01 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#02" aria-label="참여자 02의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 47% 53%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #8ea596;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M20 -10 C 60 80, 10 140, 90 170 S 170 260, 150 300" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #8ea596;"></span>참여자 02 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #8ea596;"></span>참여자 02 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#03" aria-label="참여자 03의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 64% 36%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #d49a7c;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 80 C 60 110, 120 40, 160 90 S 190 200, 230 210" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #d49a7c;"></span>참여자 03 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #d49a7c;"></span>참여자 03 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#04" aria-label="참여자 04의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 36% 59%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #a9bbcf;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M30 300 C 50 200, 140 230, 120 140 S 60 40, 180 -10" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #a9bbcf;"></span>참여자 04 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #a9bbcf;"></span>참여자 04 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#05" aria-label="참여자 05의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 53% 42%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #e3cf6e;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 140 C 50 140, 60 60, 110 70 S 150 200, 230 150" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #e3cf6e;"></span>참여자 05 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #e3cf6e;"></span>참여자 05 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#06" aria-label="참여자 06의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 70% 65%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #b6a2c7;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 190 C 40 120, 90 230, 140 160 S 200 90, 230 120" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #b6a2c7;"></span>참여자 06 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #b6a2c7;"></span>참여자 06 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#07" aria-label="참여자 07의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 42% 48%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #9db88a;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M20 -10 C 60 80, 10 140, 90 170 S 170 260, 150 300" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #9db88a;"></span>참여자 07 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #9db88a;"></span>참여자 07 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#08" aria-label="참여자 08의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 59% 31%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #dcc0b0;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 80 C 60 110, 120 40, 160 90 S 190 200, 230 210" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #dcc0b0;"></span>참여자 08 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #dcc0b0;"></span>참여자 08 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#09" aria-label="참여자 09의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 31% 54%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #7f8e9c;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M30 300 C 50 200, 140 230, 120 140 S 60 40, 180 -10" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #7f8e9c;"></span>참여자 09 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #7f8e9c;"></span>참여자 09 · [필명]</span>
         </a>
       
         <a class="cv" href="book.html#10" aria-label="참여자 10의 책">
           <span class="art" style="display: block; height: 270px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(21,22,19,.12); background: radial-gradient(circle at 48% 37%, rgba(255,255,255,.6), rgba(255,255,255,0) 46%), #e8aea0;">
             <svg viewBox="0 0 210 280" width="100%" height="100%" aria-hidden="true" style="display: block;"><path d="M-10 140 C 50 140, 60 60, 110 70 S 150 200, 230 150" fill="none" stroke="#151613" stroke-width="2.2" stroke-linecap="round"></path><text x="16" y="262" font-size="12" fill="#151613" opacity=".7">N</text></svg>
           </span>
-          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[처음 적은 단어]</span>
-          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #e8aea0;"></span>참여자 10 · [이름]</span>
+          <span style="font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 400; color: #4a4b46;">[책 제목]</span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #4a4b46;"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #151613; background: #e8aea0;"></span>참여자 10 · [필명]</span>
         </a>
       
     </div>
