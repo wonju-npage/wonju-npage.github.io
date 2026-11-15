@@ -41,7 +41,7 @@ a{color:#151613;text-decoration:none}a:hover{color:#151613;text-decoration:under
 @keyframes march{to{stroke-dashoffset:-28}}
 .obj{display:flex;flex-direction:column;align-items:center;color:#fdfaee}
 .obj:focus-visible{outline:none}
-.obj:hover .lbl,.obj:focus-visible .lbl{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+.obj:hover .lbl,.obj:focus-visible .lbl,.obj.go .lbl{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
 .snd{background:rgba(14,15,18,.62);border:none;color:#fdfaee;cursor:pointer;font:inherit}
 .snd:hover{background:rgba(14,15,18,.8)}
 .hl{display:flex;align-items:center;min-height:44px;padding:0 14px;background:rgba(14,15,18,.62);font-size:13px;font-weight:500}
@@ -120,24 +120,24 @@ a{color:#151613;text-decoration:none}a:hover{color:#151613;text-decoration:under
 .obj .wl1{transform-box:fill-box;transform-origin:0 50%}
 .obj .wl2{transform-box:fill-box;transform-origin:0 50%}
 .obj .wl3{transform-box:fill-box;transform-origin:0 50%}
-.obj:hover .bk-pull,.obj:focus-visible .bk-pull{animation:pull 1.6s ease-in-out 0s infinite both }
-.obj:hover .bk-lean,.obj:focus-visible .bk-lean{animation:lean 1.6s ease-in-out 0s infinite both }
-.obj:hover .ln-clip,.obj:focus-visible .ln-clip{animation:reveal 2.6s ease-in-out 0s infinite both }
-.obj:hover .ln-pen,.obj:focus-visible .ln-pen{animation:penmove 2.6s ease-in-out 0s infinite both }
-.obj:hover .pt,.obj:focus-visible .pt{animation:fillw 2.4s ease-out infinite both ;animation-delay:var(--d, 0s)}
-.obj:hover .brush,.obj:focus-visible .brush{animation:dab 0.7s ease-in-out 0s infinite both alternate}
-.obj:hover .spk,.obj:focus-visible .spk{animation:shake 0.18s linear 0s infinite both }
-.obj:hover .woof,.obj:focus-visible .woof{animation:thump 0.3s ease-in-out 0s infinite both alternate}
-.obj:hover .tweet,.obj:focus-visible .tweet{animation:thump 0.22s ease-in-out 0s infinite both alternate}
-.obj:hover .wv1,.obj:focus-visible .wv1{animation:wave 1.2s ease-out 0s infinite both }
-.obj:hover .wv2,.obj:focus-visible .wv2{animation:wave 1.2s ease-out 0.15s infinite both }
-.obj:hover .wv3,.obj:focus-visible .wv3{animation:wave 1.2s ease-out 0.3s infinite both }
-.obj:hover .wvl,.obj:focus-visible .wvl{animation:wavel 1.2s ease-out 0s infinite both }
-.obj:hover .wl1,.obj:focus-visible .wl1{animation:wl1 3.0s ease-in-out 0s infinite both }
-.obj:hover .wl2,.obj:focus-visible .wl2{animation:wl2 3.0s ease-in-out 0s infinite both }
-.obj:hover .wl3,.obj:focus-visible .wl3{animation:wl3 3.0s ease-in-out 0s infinite both }
-.obj:hover .pen,.obj:focus-visible .pen{animation:pen 3.0s ease-in-out 0s infinite both }
-@media (hover: none){.obj:nth-child(1) .bk-pull{animation:pull 1.6s ease-in-out 3.4s 2 both }.obj:nth-child(1) .bk-lean{animation:lean 1.6s ease-in-out 3.4s 2 both }.obj:nth-child(2) .ln-clip{animation:reveal 2.6s ease-in-out 4.1s 2 both }.obj:nth-child(2) .ln-pen{animation:penmove 2.6s ease-in-out 4.1s 2 both }.obj:nth-child(3) .pt{animation:fillw 2.4s ease-out 2 both ;animation-delay:calc(4.8s + var(--d, 0s))}.obj:nth-child(3) .brush{animation:dab 0.7s ease-in-out 4.8s 2 both alternate}.obj:nth-child(4) .spk{animation:shake 0.18s linear 5.5s 2 both }.obj:nth-child(4) .woof{animation:thump 0.3s ease-in-out 5.5s 2 both alternate}.obj:nth-child(4) .tweet{animation:thump 0.22s ease-in-out 5.5s 2 both alternate}.obj:nth-child(4) .wv1{animation:wave 1.2s ease-out 5.5s 2 both }.obj:nth-child(4) .wv2{animation:wave 1.2s ease-out 5.65s 2 both }.obj:nth-child(4) .wv3{animation:wave 1.2s ease-out 5.8s 2 both }.obj:nth-child(4) .wvl{animation:wavel 1.2s ease-out 5.5s 2 both }.obj:nth-child(5) .wl1{animation:wl1 3.0s ease-in-out 6.2s 2 both }.obj:nth-child(5) .wl2{animation:wl2 3.0s ease-in-out 6.2s 2 both }.obj:nth-child(5) .wl3{animation:wl3 3.0s ease-in-out 6.2s 2 both }.obj:nth-child(5) .pen{animation:pen 3.0s ease-in-out 6.2s 2 both }}
+.obj:hover .bk-pull,.obj:focus-visible .bk-pull,.obj.go .bk-pull{animation:pull 1.6s ease-in-out 0s infinite both }
+.obj:hover .bk-lean,.obj:focus-visible .bk-lean,.obj.go .bk-lean{animation:lean 1.6s ease-in-out 0s infinite both }
+.obj:hover .ln-clip,.obj:focus-visible .ln-clip,.obj.go .ln-clip{animation:reveal 2.6s ease-in-out 0s infinite both }
+.obj:hover .ln-pen,.obj:focus-visible .ln-pen,.obj.go .ln-pen{animation:penmove 2.6s ease-in-out 0s infinite both }
+.obj:hover .pt,.obj:focus-visible .pt,.obj.go .pt{animation:fillw 2.4s ease-out infinite both ;animation-delay:var(--d, 0s)}
+.obj:hover .brush,.obj:focus-visible .brush,.obj.go .brush{animation:dab 0.7s ease-in-out 0s infinite both alternate}
+.obj:hover .spk,.obj:focus-visible .spk,.obj.go .spk{animation:shake 0.18s linear 0s infinite both }
+.obj:hover .woof,.obj:focus-visible .woof,.obj.go .woof{animation:thump 0.3s ease-in-out 0s infinite both alternate}
+.obj:hover .tweet,.obj:focus-visible .tweet,.obj.go .tweet{animation:thump 0.22s ease-in-out 0s infinite both alternate}
+.obj:hover .wv1,.obj:focus-visible .wv1,.obj.go .wv1{animation:wave 1.2s ease-out 0s infinite both }
+.obj:hover .wv2,.obj:focus-visible .wv2,.obj.go .wv2{animation:wave 1.2s ease-out 0.15s infinite both }
+.obj:hover .wv3,.obj:focus-visible .wv3,.obj.go .wv3{animation:wave 1.2s ease-out 0.3s infinite both }
+.obj:hover .wvl,.obj:focus-visible .wvl,.obj.go .wvl{animation:wavel 1.2s ease-out 0s infinite both }
+.obj:hover .wl1,.obj:focus-visible .wl1,.obj.go .wl1{animation:wl1 3.0s ease-in-out 0s infinite both }
+.obj:hover .wl2,.obj:focus-visible .wl2,.obj.go .wl2{animation:wl2 3.0s ease-in-out 0s infinite both }
+.obj:hover .wl3,.obj:focus-visible .wl3,.obj.go .wl3{animation:wl3 3.0s ease-in-out 0s infinite both }
+.obj:hover .pen,.obj:focus-visible .pen,.obj.go .pen{animation:pen 3.0s ease-in-out 0s infinite both }
+
 @media (prefers-reduced-motion: reduce){.obj .bk-lean,.obj .bk-pull,.obj .brush,.obj .ln-clip,.obj .ln-pen,.obj .pen,.obj .pt,.obj .spk,.obj .tweet,.obj .wl1,.obj .wl2,.obj .wl3,.obj .woof,.obj .wv1,.obj .wv2,.obj .wv3,.obj .wvl{animation:none !important}}
 </style>
 <style>
@@ -373,5 +373,5 @@ html,body{margin:0;background:#f6f4ef}
     <p style="margin: 0;">선 민예원 · 색 조순호 · 소리 김수진 · 글 이성미</p>
   </footer>
 </div>
-</body>
+<script>(function(){var touch=window.matchMedia&&matchMedia('(hover: none)').matches;if(!touch)return;document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a.obj');if(!a||a.classList.contains('go'))return;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;e.preventDefault();a.classList.add('go');setTimeout(function(){location.href=a.href},700)});window.addEventListener('pageshow',function(){document.querySelectorAll('a.obj.go').forEach(function(a){a.classList.remove('go')})})})();</script></body>
 </html>
