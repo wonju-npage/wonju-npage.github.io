@@ -33,6 +33,8 @@ body{word-break:keep-all}
 </style>
 </head>
 <body>
+<script src="assets/people.js"></script>
+<script src="assets/npage-audio.js"></script>
 <div id="root"></div>
 <script>
 
@@ -82,41 +84,53 @@ function __at(root, p){ let el=root; for (const i of p){ el = el && el.children[
 
 
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { sel: [2, 6, 0], focus: 1, playing: false }; }
+  constructor(p) { super(p); this.state = { sel: [2, 6, 0], focus: 0, playing: false }; }
   renderVals() {
+    const P = window.NPAGE_PEOPLE || [];
+    const N = P.length;
     const ROLES = [
-      { name: '등장', color: '#4d6987', glow: '0 4px 14px #4d698740', len: 20,
-        words: Array.from({ length: 8 }, (_, i) => '[단어 ' + String(i + 1).padStart(2, '0') + ']') },
-      { name: '사건', color: '#b5501f', glow: '0 4px 14px #b5501f40', len: 14,
-        words: Array.from({ length: 8 }, (_, i) => '[단어 ' + String(i + 1).padStart(2, '0') + ']') },
-      { name: '여운', color: '#76629a', glow: '0 4px 14px #76629a40', len: 26,
-        words: Array.from({ length: 8 }, (_, i) => '[단어 ' + String(i + 1).padStart(2, '0') + ']') }
+      { name: '등장', color: '#4d6987', glow: '0 4px 14px #4d698740' },
+      { name: '사건', color: '#b5501f', glow: '0 4px 14px #b5501f40' },
+      { name: '여운', color: '#76629a', glow: '0 4px 14px #76629a40' }
     ];
     const { sel, focus, playing } = this.state;
-    const pad = (n) => String(n).padStart(2, '0');
+    const seg = (r, i) => { const S = P[i].sound; const b = [0, S.ev, S.yo, S.dur]; return { src: S.src, a: b[r], b: b[r + 1] }; };
+    const playFrom = (r, s) => {
+      const g = seg(r, s[r]);
+      this.setState({ sel: s, focus: r, playing: true });
+      for (let k = r + 1; k < 3; k++) window.NPA.load(P[s[k]].sound.src);
+      window.NPA.play(g.src, g.a, g.b, { fadeIn: 0.3, fadeOut: 0.3, onend: () => {
+        if (r < 2) playFrom(r + 1, s); else this.setState({ playing: false, focus: 0 });
+      } });
+    };
     const rows = ROLES.map((R, r) => ({
       name: R.name, color: R.color,
-      items: R.words.map((w, i) => {
+      items: P.map((q, i) => {
         const on = sel[r] === i;
+        const w = q.sound.words[r];
         return {
           word: w, on: on ? 'true' : 'false',
-          label: R.name + ' · ' + w,
+          label: R.name + ' · ' + w + ' · ' + q.name,
           style: 'min-height: 44px; padding: 10px 16px; border-radius: 22px; font-size: 15px; line-height: 22px; font-weight: ' + (on ? '700' : '500') + '; border: 1px solid ' + (on ? R.color : '#e2e0da') + '; background: ' + (on ? R.color : '#ffffff') + '; color: ' + (on ? '#ffffff' : '#3f403b') + '; box-shadow: ' + (on ? R.glow : 'none') + ';',
-          pick: () => { const s = sel.slice(); s[r] = i; this.setState({ sel: s, focus: r, playing: true }); }
+          pick: () => { const s = sel.slice(); s[r] = i; playFrom(r, s); }
         };
       })
     }));
-    const segs = ROLES.map((R, r) => ({
-      word: R.words[sel[r]], who: '참여자 ' + pad(sel[r] + 1),
-      bar: 'flex: ' + R.len + '; background: ' + R.color + '; opacity: ' + (r <= focus ? 1 : 0.25) + ';',
-      cap: 'flex: ' + R.len + '; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; color: ' + R.color + '; opacity: ' + (r === focus ? 1 : 0.6) + ';'
-    }));
+    const segs = ROLES.map((R, r) => {
+      const g = seg(r, sel[r]); const len = Math.max(1, Math.round(g.b - g.a));
+      const lit = !playing || r <= focus;
+      return {
+        word: P[sel[r]].sound.words[r], who: P[sel[r]].name,
+        bar: 'flex: ' + len + '; background: ' + R.color + '; opacity: ' + (lit ? 1 : 0.25) + ';',
+        cap: 'flex: ' + len + '; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; color: ' + R.color + '; opacity: ' + (!playing || r === focus ? 1 : 0.6) + ';'
+      };
+    });
     return {
       rows, segs,
       playing: playing, paused: !playing,
       playLabel: playing ? '멈춤' : '이어 듣기',
-      togglePlay: () => this.setState({ playing: !playing }),
-      shuffle: () => this.setState({ sel: [0, 1, 2].map(() => Math.floor(Math.random() * 8)), focus: 0, playing: true })
+      togglePlay: () => { if (playing) { window.NPA.stop(); this.setState({ playing: false, focus: 0 }); } else playFrom(0, sel.slice()); },
+      shuffle: () => { const s = [0, 1, 2].map(() => Math.floor(Math.random() * N)); playFrom(0, s); }
     };
   }
 }
