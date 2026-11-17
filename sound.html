@@ -96,12 +96,14 @@ class Component extends DCLogic {
     const { sel, focus, playing } = this.state;
     const seg = (r, i) => { const S = P[i].sound; const b = [0, S.ev, S.yo, S.dur]; return { src: S.src, a: b[r], b: b[r + 1] }; };
     const playFrom = (r, s) => {
-      const g = seg(r, s[r]);
       this.setState({ sel: s, focus: r, playing: true });
-      for (let k = r + 1; k < 3; k++) window.NPA.load(P[s[k]].sound.src);
-      window.NPA.play(g.src, g.a, g.b, { fadeIn: 0.3, fadeOut: 0.3, onend: () => {
-        if (r < 2) playFrom(r + 1, s); else this.setState({ playing: false, focus: 0 });
-      } });
+      const items = [];
+      for (let k = r; k < 3; k++) items.push(seg(k, s[k]));
+      window.NPA.chain(items, {
+        xf: 2.5, first: 0.5, last: 1.5,
+        onstep: (k) => this.setState({ focus: r + k }),
+        onend: () => this.setState({ playing: false, focus: 0 })
+      });
     };
     const rows = ROLES.map((R, r) => ({
       name: R.name, color: R.color,
