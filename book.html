@@ -231,7 +231,7 @@ a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
           '</ul></div></div>' };
       case 2: case 3:
         var li = L[k - 2], near = k === 2;
-        var img = '<div class="ph-wrap" style="transform:rotate(' + (near ? '-1.4' : '1.2') + 'deg)">' + clipSvg(near ? 26 : 120) + '<img src="' + li.img + '" alt="' + esc(q.name + ' · ' + (near ? '근경' : '원경') + ' 선 드로잉') + '" width="640" height="1660"></div>';
+        var img = '<button type="button" class="zoom" data-zoom="' + (near ? 'n' : 'f') + '" aria-label="' + esc(q.num + ' ' + q.name + '의 ' + (near ? '근경' : '원경') + ' 선 드로잉 크게 보기') + '"><span class="ph-wrap" style="transform:rotate(' + (near ? '-1.4' : '1.2') + 'deg)">' + clipSvg(near ? 26 : 120) + '<img src="' + li.img + '" alt="' + esc(q.name + ' · ' + (near ? '근경' : '원경') + ' 선 드로잉') + '" width="640" height="1660"></span></button>';
         var txt = '<div style="display:flex;flex-direction:column;gap:10px;justify-content:flex-end;min-width:0"><p style="margin:0;font-size:12px;font-weight:600;color:#6b6c66">' + (near ? '근경' : '원경') + '</p><p class="sim" style="margin:0;font-size:21px;line-height:1.55">' + esc(li.text) + '</p>' + (near ? '' : '<p class="credit-s" style="margin:8px 0 0">직유 · 담당 작가 민예원</p>') + '</div>';
         return { cls: '', style: '', html:
           '<div class="pgin"><div class="rh"><span>선 · 직유</span><span>' + esc(q.name) + '</span></div>' +
@@ -239,7 +239,8 @@ a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
           '<span class="pno">' + k + '</span></div>' };
       case 4: return { cls: '', style: '', html:
         '<div class="pgin"><div class="rh"><span>색 · 은유</span><span>' + esc(q.name) + '</span></div>' +
-        '<div style="display:flex;justify-content:center;padding-top:6px"><button type="button" class="zoom" data-zoom="c" aria-label="' + esc(q.num + ' ' + q.name + '의 조색 크게 보기') + '"><span class="ph-wrap" style="display:block;width:196px;transform:rotate(-1.1deg)"><span class="tape" style="left:61px"></span><img src="' + (q.paintS || '') + '" alt="' + esc(q.name + '이(가) 물감을 섞어 칠한 색') + '" width="480" height="640"></span></button></div>' +
+        '<div style="display:flex;justify-content:center;padding-top:6px"><button type="button" class="zoom" data-zoom="c" aria-label="' + esc(q.num + ' ' + q.name + '의 문장에서 옮긴 색 크게 보기') + '"><span class="ph-wrap" style="display:block;width:196px;transform:rotate(-1.1deg)"><span class="tape" style="left:61px"></span><img src="' + (q.paintS || '') + '" alt="' + esc(q.name + '의 은유 문장을 조순호 작가가 옮긴 색') + '" width="480" height="640"></span></button></div>' +
+        '<p class="credit-s" style="margin:-8px 0 0;text-align:center">문장에서 옮긴 색 — 조순호</p>' +
         '<div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">' + (q.metaphor || []).map(function (t) { return '<p class="sim" style="margin:0;font-size:21px;line-height:1.5">' + esc(t) + '</p>'; }).join('') + '</div>' +
         '<p class="credit-s" style="margin:auto 0 18px">은유 · 담당 작가 조순호</p><span class="pno">4</span></div>' };
       case 5: return { cls: '', style: '', html:
@@ -287,7 +288,6 @@ a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
               '<dt>주　최</dt><dd style="font-weight:600">한국예술인복지재단</dd>' +
               '<dt>후　원</dt><dd style="font-weight:600">문화체육관광부</dd>' +
             '</dl>' +
-            '<p style="margin:2px 0 0;font-size:11px;line-height:16px;color:#2c2d29">웹 아카이브 페이지<br>https://wonju-npage.github.io/</p>' +
           '</div><span class="pno" style="color:#fff;mix-blend-mode:difference">8</span></div>' };
       case 9: return { cls: 'bc', style: coverBg(q.color), html:
         '<div class="pgin" style="justify-content:flex-end;gap:24px;padding:44px 44px 40px 40px">' +
@@ -417,7 +417,7 @@ a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
     if (t) {
       if (t.dataset.go != null) { goPage(+t.dataset.go); return; }
       if (t.dataset.book != null) { swapBook(+t.dataset.book); return; }
-      if (t.dataset.zoom) { openZoom(t.dataset.zoom); return; }
+      if (t.dataset.zoom) { if (!moved) openZoom(t.dataset.zoom); return; }
       if (t.dataset.play) { togglePlay(t); return; }
       return;
     }
@@ -460,9 +460,13 @@ a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
   var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'), lastFocus = null;
   function openZoom(kind) {
     var q = P[cur]; lastFocus = document.activeElement;
-    if (kind === 'c') {
-      lbImg.src = q.paint || ''; lbImg.alt = q.name + '이(가) 물감을 섞어 칠한 색';
-      document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 조색';
+    if (kind === 'n' || kind === 'f') {
+      var li = q.lines[kind === 'n' ? 0 : 1], nm = kind === 'n' ? '근경' : '원경';
+      lbImg.src = li.img; lbImg.alt = q.name + ' · ' + nm + ' 선 드로잉';
+      document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 선 ' + nm;
+    } else if (kind === 'c') {
+      lbImg.src = q.paint || ''; lbImg.alt = q.name + '의 은유 문장을 조순호 작가가 옮긴 색';
+      document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 문장에서 옮긴 색 · 조순호';
     } else {
       lbImg.src = 'assets/rec-' + q.num + '.jpg'; lbImg.alt = q.name + '이(가) 녹음기 화면의 시간을 보며 손으로 적은 시간기록지';
       document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 시간기록';
