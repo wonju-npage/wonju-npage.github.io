@@ -10,137 +10,476 @@
 @font-face{font-family:'Npage Alley';src:url(assets/fonts/NpageAlley.woff2) format('woff2');font-display:swap}
 @font-face{font-family:'Chai Hwaljjak';src:url(assets/fonts/ChaiHwaljjak-Bold.otf) format('opentype');font-weight:700;font-display:swap}
 @font-face{font-family:'SimKyungha';src:url(assets/fonts/SimKyungha.ttf) format('truetype');font-weight:400;font-display:swap}
-body{margin:0;background:#ffffff}
+body{margin:0;background:#ffffff;word-break:keep-all}
 a{color:#6b6c66;text-decoration:none}a:hover{color:#151613}
-.pg{background:none;border:none;font:inherit;color:#6b6c66;cursor:pointer;padding:12px 0;min-height:44px}
-.pg:hover,.pg:focus-visible{color:#151613;text-decoration:underline;text-underline-offset:4px}
-</style>
-<style>
-body{word-break:keep-all}
-#root > *{max-width:1440px;margin-left:auto;margin-right:auto}
-@media (max-width:640px){
-  h1{font-size:30px !important;line-height:1.2 !important}
-  main > div:has(> div > button.win){gap:8px !important;width:100%}
-  main > div:has(> div > button.win) > span:last-child{display:none}
-  div:has(> button.win){gap:5px !important;flex:1;min-width:0}
-  button.win{width:auto !important;flex:1;min-width:0;height:56px !important}
-  main > div:has(> div > button.chip){grid-template-columns:1fr !important;gap:8px !important}
-  main > div:has(> div > button.chip) > span{padding-top:0 !important}
-  button.chip{padding:8px 12px !important;font-size:14px !important;min-height:44px}
-  footer > div > div:nth-child(2){flex-direction:column;gap:2px !important}
-  footer > div > div:nth-child(2) > span{flex:none !important;white-space:normal !important}
-}
+.wrap{max-width:1440px;margin:0 auto;box-sizing:border-box;color:#151613;font-family:'Noto Sans KR','Noto Sans CJK KR',system-ui,sans-serif;padding:24px 40px 64px;display:flex;flex-direction:column;gap:24px}
+.bk-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;max-width:1120px;width:100%;margin:0 auto;font-size:13px;font-weight:500}
+.bk-top a{padding:8px 0}
+.who{margin:0;font-size:13px;line-height:18px;font-weight:600;color:#6b6c66}
+
+/* 무대 */
+.stage{position:relative;margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.stage.single{overflow:hidden}
+.scaler{position:absolute;left:0;top:0;transform-origin:0 0}
+.book{position:absolute;top:0;width:920px;height:640px;transition:transform .9s cubic-bezier(.33,.08,.18,1),opacity .35s ease}
+.book.swap{opacity:0}
+.base{position:absolute;top:0;width:460px;height:640px;background:#f7f3ea;border-radius:2px}
+.base.r{left:460px;box-shadow:1px 1px 0 #ece6d8,2px 2px 0 #e3dccb,3px 3px 0 #ece6d8,4px 4px 0 #ddd5c2,0 18px 40px rgba(21,22,19,.16)}
+.base.l{left:0;box-shadow:-1px 1px 0 #ece6d8,-2px 2px 0 #e3dccb,-3px 3px 0 #ece6d8,-4px 4px 0 #ddd5c2,0 18px 40px rgba(21,22,19,.16);opacity:0;transition:opacity .4s ease}
+.book.open .base.l{opacity:1}
+.book.end .base.r{opacity:0}
+.leaf{position:absolute;left:460px;top:0;width:460px;height:640px;transform-origin:0 50%;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.33,.08,.18,1)}
+.face{position:absolute;inset:0;box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#fbf8f0;border-radius:2px 4px 4px 2px}
+.face.back{transform:rotateY(180deg);border-radius:4px 2px 2px 4px}
+.face::after{content:'';position:absolute;inset:0;pointer-events:none}
+.face.front::after{background:linear-gradient(to right,rgba(21,22,19,.13),rgba(21,22,19,0) 7%)}
+.face.back::after{background:linear-gradient(to left,rgba(21,22,19,.13),rgba(21,22,19,0) 7%)}
+.face.cv::after{background:linear-gradient(to right,rgba(255,255,255,.18),rgba(255,255,255,0) 4%,rgba(21,22,19,.06) 5%,rgba(21,22,19,0) 9%)}
+.face.bc::after{background:linear-gradient(to left,rgba(255,255,255,.18),rgba(255,255,255,0) 4%,rgba(21,22,19,.06) 5%,rgba(21,22,19,0) 9%)}
+.pgin{position:absolute;inset:0;padding:38px 44px 34px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px}
+.rh{display:flex;justify-content:space-between;font-size:12px;line-height:16px;font-weight:600;color:#6b6c66}
+.pno{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:11px;color:#8a8b85}
+.ftx{margin:10px 0 0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:.7em}
+.ftx p{margin:0;line-height:1.62;white-space:pre-line}
+.credit-s{font-size:11px;line-height:16px;color:#6b6c66}
+.sim{font-family:'SimKyungha','Noto Serif KR',serif;color:#151613}
+.ph-wrap{position:relative;display:block}
+.ph-wrap img{display:block;width:100%;height:auto;border:1px solid #e2e0da;background:#fff;box-shadow:0 3px 10px rgba(21,22,19,.12)}
+.clip{position:absolute;top:-14px;width:22px;height:54px;pointer-events:none}
+.tape{position:absolute;top:-10px;width:74px;height:22px;background:rgba(236,227,200,.8);box-shadow:0 1px 2px rgba(21,22,19,.12);pointer-events:none}
+.zoom{background:none;border:none;padding:0;cursor:zoom-in;font:inherit;color:inherit;text-align:left;display:block}
+.zoom:focus-visible{outline:2px solid #151613;outline-offset:4px}
+.toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.toc button{width:100%;display:flex;align-items:baseline;gap:8px;background:none;border:none;padding:7px 0;min-height:38px;font:inherit;font-size:15px;color:#151613;cursor:pointer;text-align:left}
+.toc button i{flex:1;border-bottom:1px dotted #9a9b95;transform:translateY(-4px)}
+.toc button:hover,.toc button:focus-visible{outline:none;text-decoration:underline;text-underline-offset:4px}
+.play{width:48px;height:48px;border-radius:50%;border:none;background:#151613;color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.play:hover,.play:focus-visible{outline:2px solid #151613;outline-offset:2px}
+.wv{position:relative;height:40px;display:flex;align-items:center;gap:2px}
+.wv span.b{flex:1;min-width:2px;border-radius:2px}
+.wv .hd{position:absolute;top:-4px;bottom:-4px;width:2px;background:#151613;left:0;opacity:0}
+.nextbk{display:flex;gap:16px;align-items:stretch;background:none;border:none;padding:0;cursor:pointer;font:inherit;color:#151613;text-align:left}
+.nextbk .mini{width:88px;height:120px;flex-shrink:0;border-radius:2px;box-shadow:0 6px 16px rgba(21,22,19,.18);transition:transform .3s ease}
+.nextbk:hover .mini,.nextbk:focus-visible .mini{transform:translateY(-4px) rotate(-1.5deg)}
+.nextbk:focus-visible{outline:2px solid #151613;outline-offset:6px}
+.lnk{background:none;border:none;padding:10px 0;font:inherit;color:#2c2d29;cursor:pointer}
+.lnk:hover,.lnk:focus-visible{text-decoration:underline;text-underline-offset:4px;outline:none}
+
+/* 판권: 표지 디자인 위에 */
+.pk{position:absolute;inset:0;background:#fbfaf6}
+.pk .dots{position:absolute;left:0;right:0;top:0;height:62%;background-image:radial-gradient(circle,#d4237f 1px,transparent 1.5px),radial-gradient(circle,#1a8fd0 1px,transparent 1.5px),radial-gradient(circle,#e7c51c 1px,transparent 1.5px),radial-gradient(circle,#2a2b28 .9px,transparent 1.4px);background-size:13px 13px,15px 15px,17px 17px,11px 11px;background-position:0 0,5px 7px,9px 3px,3px 9px;opacity:.32;-webkit-mask-image:linear-gradient(#000,#000 70%,transparent);mask-image:linear-gradient(#000,#000 70%,transparent)}
+.pk .ht{position:absolute;left:0;right:0;bottom:0;width:100%;height:44%;object-fit:cover;object-position:50% 0}
+.pk dl{margin:0;display:grid;grid-template-columns:62px 1fr;gap:9px 10px;align-items:baseline;font-size:13px}
+.pk dt{font-weight:700;letter-spacing:2px;white-space:nowrap;position:relative;padding-right:10px}
+.pk dt::after{content:'';position:absolute;right:0;top:3px;bottom:2px;width:1.5px;background:#151613}
+.pk dd{margin:0;min-width:0}
+.pk dd.hw{font-family:'SimKyungha','Noto Serif KR',serif;font-size:18px;line-height:1.25}
+
+/* 인덱스 탭 */
+.tab{position:absolute;width:46px;height:80px;border:none;padding:0;cursor:pointer;font-family:'Chai Hwaljjak','Noto Sans KR',sans-serif;font-size:15px;font-weight:700;color:#151613;writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;transition:left .9s cubic-bezier(.33,.08,.18,1),background-color .3s ease,filter .2s ease;z-index:40}
+.tab.r{border-radius:0 12px 12px 0;padding-left:6px}
+.tab.l{border-radius:12px 0 0 12px;padding-right:6px}
+.tab:hover{filter:brightness(.95)}
+.tab:focus-visible{outline:2px solid #151613;outline-offset:2px}
+.chips{display:none;justify-content:center;gap:8px;flex-wrap:wrap}
+.chips button{min-height:40px;padding:0 15px;border-radius:20px;border:1px solid #d8d6cf;background:#fff;font:inherit;font-size:14px;font-weight:600;color:#151613;cursor:pointer}
+.chips button[aria-current="true"]{border-color:#151613;background:#151613;color:#fff}
+.stage.single + .chips{display:flex}
+
+.ctl{display:flex;justify-content:center;align-items:center;gap:24px;font-size:14px;font-weight:500}
+.ctl button{background:none;border:none;font:inherit;color:#151613;cursor:pointer;padding:10px 4px;min-height:44px;min-width:44px}
+.ctl button:hover,.ctl button:focus-visible{text-decoration:underline;text-underline-offset:4px;outline:none}
+.ctl button:disabled{color:#c2c0b8;cursor:default;text-decoration:none}
+.ctl .pos{min-width:200px;text-align:center;font-size:13px;color:#6b6c66}
+
+.lb{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;box-sizing:border-box}
+.lb[hidden]{display:none}
+.lb .bg{position:absolute;inset:0;border:none;padding:0;background:rgba(21,22,19,.86);cursor:zoom-out}
+.lb img{position:relative;max-height:calc(100vh - 110px);max-height:calc(100svh - 110px);max-width:100%;width:auto;height:auto;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.4)}
+.lb p{position:relative;margin:0;font-size:13px;font-weight:600;color:#fff}
+.lb .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border:none;background:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lb .x:hover,.lb .x:focus-visible{background:rgba(255,255,255,.14);outline:none}
+
+@media (max-width:640px){.wrap{padding:20px 20px 48px;gap:20px}}
+@media (prefers-reduced-motion: reduce){.book,.leaf,.tab{transition:none !important}}
 </style>
 </head>
 <body>
 <script src="assets/people.js"></script>
 <script src="assets/npage-audio.js"></script>
-<div id="root"></div>
+<div class="wrap">
+<header style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <a href="./" style="font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.5px; color: #151613;"><img src="assets/icon.png" alt="" width="40" height="40" style="width: 40px; height: 40px; vertical-align: -8px; margin-right: 8px;">도시 산책자의 N페이지</a>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6b6c66;">원주에서 문장 좀 줍겠습니다 · 2026. 11. 14.</p>
+    </div>
+    <nav aria-label="아카이브" style="display: flex; flex-wrap: wrap; gap: 26px; font-size: 15px; font-weight: 500; padding-top: 10px;">
+      <a href="./">홈</a>
+      <a href="shelf.html">책장</a>
+      <a href="lines.html">선</a>
+      <a href="colors.html">색</a>
+      <a href="sound-archive.html">소리</a>
+      <a href="texts.html">글</a>
+      <a href="about.html">소개</a>
+    </nav>
+  </header>
+
+  <div class="bk-top">
+    <a href="shelf.html">← 책장으로</a>
+    <p class="who" id="who"></p>
+  </div>
+
+  <main>
+    <h1 id="bk-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></h1>
+    <div class="stage" id="stage" aria-roledescription="책" aria-labelledby="bk-title">
+      <div class="scaler" id="scaler">
+        <div class="book" id="book"></div>
+      </div>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="바로 가기"></div>
+  </main>
+  <nav class="ctl" aria-label="책장 넘기기">
+    <button type="button" id="prev">← 앞 장</button>
+    <span class="pos" id="pos" aria-live="polite"></span>
+    <button type="button" id="next">다음 장 →</button>
+  </nav>
+
+<footer class="credit" style="display: flex; flex-direction: column; gap: 8px; max-width: 1120px; margin: 0 auto; width: 100%; padding-top: 20px; border-top: 1px solid #e2e0da; font-size: 12px; line-height: 18px; color: #6b6c66;">
+    <p style="margin: 0;">위 내용은 한국예술인복지재단에서 주최하는 2026년 예술로 협업사업의 일환으로 시행되었습니다.</p>
+    <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 4px 24px;"><span>주최│한국예술인복지재단</span><span>주관│바름책방</span><span>후원│문화체육관광부</span></p>
+    <p style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px;"><span style="display: inline-flex; align-items: center; gap: 20px; padding: 4px 0;"><img src="assets/logo-kawf.png" alt="한국예술인복지재단" style="display: block; height: 32px; width: auto;"><img src="assets/logo-mcst.png" alt="문화체육관광부" style="display: block; height: 22px; width: auto;"></span></p>
+    <p style="margin: 0;">선 민예원 · 색 조순호 · 소리 김수진 · 글 이성미</p>
+  </footer>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-cap">
+  <button type="button" class="bg" tabindex="-1" aria-label="닫기"></button>
+  <img id="lb-img" src="data:," alt="">
+  <p id="lb-cap"></p>
+  <button type="button" class="x" aria-label="닫기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
 <script>
-
-class DCLogic {
-  constructor(p){ this.props = p || {}; this.state = {}; }
-  setState(s){ let ch=false; for (const k in s){ if (this.state[k] !== s[k]) ch=true; } Object.assign(this.state, s); if (ch && this.__mount) this.__mount(); }
-  forceUpdate(){ if (this.__mount) this.__mount(); }
-}
-function __render(tplHtml, vals) {
-  const tpl = document.createElement('template'); tpl.innerHTML = tplHtml;
-  const look = (p, scope) => {
-    p = p.trim(); if (p === 'true') return true; if (p === 'false') return false;
-    const segs = p.split('.'); let v = (segs[0] in scope) ? scope[segs[0]] : vals[segs[0]];
-    for (const s of segs.slice(1)) v = v == null ? undefined : v[s]; return v;
+(function () {
+  var P = window.NPAGE_PEOPLE || [];
+  var N = P.length;
+  var PW = 460, PH = 640, TABW = 46;
+  var ROLES = [{ n: '등장', c: '#4d6987' }, { n: '사건', c: '#b5501f' }, { n: '여운', c: '#76629a' }];
+  var CURVE = {
+    '01': 'M-10 190 C 40 120, 90 230, 140 160 S 200 90, 230 120', '02': 'M20 -10 C 60 80, 10 140, 90 170 S 170 260, 150 300',
+    '03': 'M-10 80 C 60 110, 120 40, 160 90 S 190 200, 230 210', '04': 'M30 300 C 50 200, 140 230, 120 140 S 60 40, 180 -10',
+    '05': 'M-10 140 C 50 140, 60 60, 110 70 S 150 200, 230 150', '06': 'M-10 190 C 40 120, 90 230, 140 160 S 200 90, 230 120',
+    '07': 'M20 -10 C 60 80, 10 140, 90 170 S 170 260, 150 300', '08': 'M-10 80 C 60 110, 120 40, 160 90 S 190 200, 230 210'
   };
-  const interp = (str, scope) => str.replace(/\{\{([^}]+)\}\}/g, (_, p) => { const v = look(p, scope); return v == null ? '' : String(v); });
-  const walk = (node, scope, out) => {
-    for (const n of Array.from(node.childNodes)) {
-      if (n.nodeType === 3) { out.appendChild(document.createTextNode(interp(n.textContent, scope))); continue; }
-      if (n.nodeType !== 1) continue;
-      const tag = n.tagName.toLowerCase();
-      if (tag === 'sc-for') {
-        const list = look(n.getAttribute('list').replace(/[{}]/g, ''), scope) || []; const as = n.getAttribute('as');
-        list.forEach((it, i) => walk(n.content || n, Object.assign({}, scope, { [as]: it, $index: i }), out)); continue;
-      }
-      if (tag === 'sc-if') { if (look(n.getAttribute('value').replace(/[{}]/g, ''), scope)) walk(n, scope, out); continue; }
-      const el = n.cloneNode(false);
-      for (const a of Array.from(n.attributes)) {
-        if (!a.value.includes('{{')) continue;
-        const whole = a.value.match(/^\{\{([^}]+)\}\}$/);
-        if (a.name.startsWith('on')) {
-          el.removeAttribute(a.name);
-          const fn = whole ? look(whole[1], scope) : null;
-          if (typeof fn === 'function') el.addEventListener(a.name.slice(2).toLowerCase(), fn);
-          continue;
-        }
-        if (whole) { const v = look(whole[1], scope); if (v === false || v == null) { el.removeAttribute(a.name); continue; } if (v === true) { el.setAttribute(a.name, ''); continue; } }
-        el.setAttribute(a.name, interp(a.value, scope));
-      }
-      walk(n, scope, el); out.appendChild(el);
+  /* 판권: 각자 손으로 적은 판권 쪽에서 그대로 옮김(실명 포함). author 가 있으면 저자 칸은 판권에 적힌 대로, 없으면 필명(q.name). */
+  var PK = {
+    '01': { pub: '바름책방', date: '11. 14.', copy: '' },
+    '02': { pub: '레인보우', date: '2026. 11. 14.', copy: '원현숙' },
+    '03': { pub: '다정한 우리집', date: '2026. 11. 14.', copy: '' },
+    '04': { pub: '나옹발바닥젤리사랑출판사 :)', date: '2026. 11. 14.', copy: '박고은' },
+    '05': { pub: '도시 산책자들의 모임', date: '2026년 11월 14일', copy: '박보경' },
+    '06': { pub: '딱다구리', date: '26년 11월 14일', copy: '미상' },
+    '07': { pub: '연서 출판사', date: '2026. 11. 14.', copy: '', author: '연서 김향숙' },
+    '08': { pub: '기억의 동네', date: '2026. 11. 14.', copy: '김참치' }
+  };
+  /* 쪽: 0 표지 · 1 차례 · 2 선 근경 · 3 선 원경 · 4 색 · 5 소리 기록지 · 6 소리 문장 · 7 글 · 8 판권 · 9 뒤표지
+     장(leaf) k: 앞면 = 쪽 2k, 뒷면 = 쪽 2k+1. 펼친 면 k: 왼쪽 = 쪽 2k-1, 오른쪽 = 쪽 2k (글 | 판권이 마지막 펼침) */
+  var SECS = [{ key: '선', sub: '직유', page: 2 }, { key: '색', sub: '은유', page: 4 }, { key: '소리', sub: '서사', page: 5 }, { key: '글', sub: '모아 쓰기', page: 7 }];
+  var PAGE_SEC = ['표지', '차례', '선', '선', '색', '소리', '소리', '글', '판권', '뒤표지'];
+  var NL = 5;
+
+  var stage = document.getElementById('stage'), scaler = document.getElementById('scaler'), book = document.getElementById('book');
+  var bPrev = document.getElementById('prev'), bNext = document.getElementById('next'), pos = document.getElementById('pos');
+  var chips = document.getElementById('chips');
+  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+  var cur = 0, m = 0, single = false, scale = 1, leaves = [], tabs = [], iv = null, lastK = 0;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmt(x) { x = Math.round(x); return Math.floor(x / 60) + ':' + String(x % 60).padStart(2, '0'); }
+  function tint(c, a) { return 'color-mix(in srgb, ' + c + ' ' + a + '%, #fbf8f0)'; }
+  function clipSvg(x) { return '<svg class="clip" style="left:' + x + 'px" viewBox="0 0 22 54" aria-hidden="true"><path d="M7 40 V8 a4 4 0 0 1 8 0 V46 a6 6 0 0 1 -12 0 V14" fill="none" stroke="#6b6c66" stroke-width="1.6" stroke-linecap="round"/></svg>'; }
+  function coverArt(q, w) { return '<svg viewBox="0 0 210 280" preserveAspectRatio="none" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0;display:block"><path d="' + CURVE[q.num] + '" fill="none" stroke="#151613" stroke-width="' + w + '" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>'; }
+  /* 마지막 글 길이에 맞춰 글자 크기를 고름(쪽 안쪽 372 × 약 470px에 들어가게, 심경하체 한 글자 ≈ 0.53em) */
+  function textFs(T) {
+    for (var fs = 23; fs > 14; fs--) {
+      var cpl = Math.floor(372 / (fs * .6)), n = 0;
+      T.forEach(function (b) { b.split('\n').forEach(function (l) { n += Math.max(1, Math.ceil(l.length / cpl)); }); });
+      if (n * fs * 1.62 + (T.length - 1) * fs * .7 <= 470) return fs;
     }
-  };
-  const frag = document.createDocumentFragment(); walk(tpl.content, {}, frag); return frag;
-}
-function __pathOf(el, root){ const p=[]; while (el && el !== root){ const par=el.parentNode; if(!par) return null; p.unshift(Array.prototype.indexOf.call(par.children, el)); el=par; } return el===root ? p : null; }
-function __at(root, p){ let el=root; for (const i of p){ el = el && el.children[i]; } return el; }
-
-
-class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { i: 0 }; }
-  renderVals() {
-    const P = window.NPAGE_PEOPLE || [];
-    const N = P.length;
-    const pad = (n) => String(n).padStart(2, '0');
-    const greys = ['#e4e1da', '#d9d7d1', '#cfccc4', '#c4c1b9', '#b9b6ae', '#aeaba3', '#a3a098', '#98958d', '#8d8a82', '#827f77'];
-    const i = this.state.i;
-    const go = (j) => () => {
-      if (window.NPA) window.NPA.stop();
-      this.setState({ i: j, sp: false });
-      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
-    };
-    const hide = 'visibility: hidden;';
-    const q = P[i] || { name: '', title: '', lines: [{}, {}], sound: { lines: ['', '', ''], ev: 0, yo: 0, dur: 1 } };
-    const S = q.sound || { lines: ['', '', ''], ev: 0, yo: 0, dur: 1 };
-    const fmt = (x) => { x = Math.round(x); return Math.floor(x / 60) + ':' + String(x % 60).padStart(2, '0'); };
-    const sp = !!this.state.sp;
-    return {
-      sPlaying: sp, sPaused: !sp, sLabel: sp ? '녹음 멈춤' : '녹음 듣기',
-      sToggle: () => {
-        if (sp) { window.NPA.stop(); this.setState({ sp: false }); return; }
-        this.setState({ sp: true });
-        window.NPA.play(S.src, 0, null, { onend: () => this.setState({ sp: false }) });
-      },
-      sf0: S.ev, sf1: S.yo - S.ev, sf2: S.dur - S.yo,
-      sTimes: '사건 ' + fmt(S.ev) + ' · 여운 ' + fmt(S.yo), sEnd: fmt(S.dur),
-      s1: S.lines[0] || '—', s2: S.lines[1] || '—', s3: S.lines[2] || '—',
-      n: N,
-      name: q.name, title: q.title,
-      l1img: q.lines[0].img, l1text: q.lines[0].text, l2img: q.lines[1].img, l2text: q.lines[1].text,
-      l1alt: q.name + ' · 근경 선 드로잉과 문장', l2alt: q.name + ' · 원경 선 드로잉과 문장',
-      num: pad(i + 1),
-      swatch: greys[i],
-      prevNum: pad(Math.max(1, i)),
-      nextNum: pad(Math.min(N, i + 2)),
-      atStart: i === 0,
-      atEnd: i === N - 1,
-      prevStyle: i === 0 ? hide : '',
-      nextStyle: i === N - 1 ? hide : '',
-      goPrev: go(Math.max(0, i - 1)),
-      goNext: go(Math.min(N - 1, i + 1))
-    };
+    return 14;
   }
-}
+  function coverBg(c) { return 'background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 46%), ' + c + ';'; }
 
-const TPL = "\n\n<div style=\"min-height: 1800px; box-sizing: border-box; background: #ffffff; color: #151613; font-family: 'Noto Sans KR', 'Noto Sans CJK KR', system-ui, sans-serif; padding: 24px 40px 64px; display: flex; flex-direction: column; gap: 56px;\">\n  <header style=\"display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 16px;\">\n    <div style=\"display: flex; flex-direction: column; gap: 4px;\">\n      <a href=\"./\" style=\"font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 34px; line-height: 40px; font-weight: 700; letter-spacing: -0.5px; color: #151613;\"><img src=\"assets/icon.png\" alt=\"\" width=\"40\" height=\"40\" style=\"width: 40px; height: 40px; vertical-align: -8px; margin-right: 8px;\">도시 산책자의 N페이지</a>\n      <p style=\"margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6b6c66;\">원주에서 문장 좀 줍겠습니다 · 2026. 11. 14.</p>\n    </div>\n    <nav aria-label=\"아카이브\" style=\"display: flex; flex-wrap: wrap; gap: 26px; font-size: 15px; font-weight: 500; padding-top: 10px;\">\n      <a href=\"./\">홈</a>\n      <a href=\"shelf.html\">책장</a>\n      <a href=\"lines.html\">선</a>\n      <a href=\"colors.html\">색</a>\n      <a href=\"sound-archive.html\">소리</a>\n      <a href=\"texts.html\">글</a>\n      <a href=\"about.html\">소개</a>\n    </nav>\n  </header>\n\n  <div style=\"display: flex; flex-direction: column; gap: 8px; max-width: 1120px; width: 100%; margin: 0 auto;\">\n    <a href=\"shelf.html\" style=\"font-size: 13px; font-weight: 500; padding: 8px 0;\">← 책장으로</a>\n    <p style=\"margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.2px; color: #6b6c66;\">{{num}} · {{name}}</p>\n    <h1 style=\"margin: 0; font-family: 'Npage Alley', 'Noto Sans KR', sans-serif; font-size: 60px; line-height: 1.2; font-weight: 400; color: #151613;\">{{title}}</h1>\n  </div>\n\n  <section aria-labelledby=\"h-line\" style=\"display: flex; flex-wrap: wrap; gap: 32px 48px; max-width: 1120px; width: 100%; margin: 0 auto; padding-top: 32px; border-top: 1px solid #e2e0da;\">\n    <div style=\"flex: 0 0 160px; display: flex; flex-direction: column; gap: 4px;\">\n      <h2 id=\"h-line\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">선</h2>\n      <span style=\"font-size: 13px; line-height: 18px; color: #6b6c66;\">직유 · {{name}}</span>\n    </div>\n    <div style=\"flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px;\">\n      <div style=\"display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 32px;\">\n        <figure style=\"margin: 0; display: flex; flex-direction: column; gap: 16px;\">\n          <img src=\"{{l1img}}\" alt=\"{{l1alt}}\" style=\"display: block; align-self: flex-start; max-width: 100%; max-height: 640px; width: auto; height: auto; border: 1px solid #e2e0da;\">\n          <figcaption style=\"display: flex; flex-direction: column; gap: 6px;\"><span style=\"font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.2px; color: #6b6c66;\">근경</span><span style=\"font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 24px; line-height: 1.5; color: #151613;\">{{l1text}}</span></figcaption>\n        </figure>\n        <figure style=\"margin: 0; display: flex; flex-direction: column; gap: 16px;\">\n          <img src=\"{{l2img}}\" alt=\"{{l2alt}}\" style=\"display: block; align-self: flex-start; max-width: 100%; max-height: 640px; width: auto; height: auto; border: 1px solid #e2e0da;\">\n          <figcaption style=\"display: flex; flex-direction: column; gap: 6px;\"><span style=\"font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.2px; color: #6b6c66;\">원경</span><span style=\"font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 24px; line-height: 1.5; color: #151613;\">{{l2text}}</span></figcaption>\n        </figure>\n      </div>\n      <p style=\"margin: 0; font-size: 12px; line-height: 16px; color: #6b6c66;\">담당 작가: 민예원</p>\n    </div>\n  </section>\n\n  <section aria-labelledby=\"h-color\" style=\"display: flex; flex-wrap: wrap; gap: 32px 48px; max-width: 1120px; width: 100%; margin: 0 auto; padding-top: 32px; border-top: 1px solid #e2e0da;\">\n    <div style=\"flex: 0 0 160px; display: flex; flex-direction: column; gap: 4px;\">\n      <h2 id=\"h-color\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">색</h2>\n      <span style=\"font-size: 13px; line-height: 18px; color: #6b6c66;\">은유 · {{name}}</span>\n    </div>\n    <div style=\"flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px;\">\n      <div style=\"display: flex; flex-wrap: wrap; gap: 24px;\">\n        <div style=\"flex: 0 0 200px; display: flex; flex-direction: column; gap: 8px;\">\n          <div style=\"height: 200px; background: {{swatch}}; border: 1px solid #e2e0da;\"></div>\n          <span style=\"font-family: 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 18px; line-height: 1.4; color: #6b6c66;\">[색 이름]</span>\n        </div>\n        <div style=\"flex: 1 1 320px; display: flex; flex-direction: column; gap: 20px;\">\n          <div style=\"aspect-ratio: 4 / 3; background: #f1efea; border: 1px solid #e2e0da; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box; font-size: 13px; line-height: 18px; color: #6b6c66;\">[색 페이지 사진 — 색 이름과 질감 단어]</div>\n          <p style=\"margin: 0; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 26px; line-height: 1.5; color: #6b6c66;\">[이 색은 ~이다 — 은유 문장]</p>\n        </div>\n      </div>\n      <p style=\"margin: 0; font-size: 12px; line-height: 16px; color: #6b6c66;\">담당 작가: 조순호</p>\n    </div>\n  </section>\n\n  <section aria-labelledby=\"h-sound\" style=\"display: flex; flex-wrap: wrap; gap: 32px 48px; max-width: 1120px; width: 100%; margin: 0 auto; padding-top: 32px; border-top: 1px solid #e2e0da;\">\n    <div style=\"flex: 0 0 160px; display: flex; flex-direction: column; gap: 4px;\">\n      <h2 id=\"h-sound\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">소리</h2>\n      <span style=\"font-size: 13px; line-height: 18px; color: #6b6c66;\">서사 · {{name}}</span>\n    </div>\n    <div style=\"flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px;\">\n      <div style=\"display: flex; align-items: center; gap: 20px; flex-wrap: wrap;\">\n        <button type=\"button\" aria-label=\"{{sLabel}}\" onClick=\"{{sToggle}}\" style=\"width: 56px; height: 56px; border-radius: 50%; border: none; background: #151613; color: #ffffff; font-size: 16px; cursor: pointer; flex-shrink: 0;\"><sc-if value=\"{{sPaused}}\">▶</sc-if><sc-if value=\"{{sPlaying}}\">■</sc-if></button>\n        <div style=\"flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px;\">\n          <div style=\"display: flex; height: 12px; gap: 3px;\">\n            <span style=\"flex: {{sf0}}; background: #4d6987;\"></span>\n            <span style=\"flex: {{sf1}}; background: #b5501f;\"></span>\n            <span style=\"flex: {{sf2}}; background: #76629a;\"></span>\n          </div>\n          <div style=\"display: flex; justify-content: space-between; font-size: 13px; line-height: 18px; font-weight: 500; color: #6b6c66;\">\n            <span>{{sTimes}}</span>\n            <span>{{sEnd}}</span>\n          </div>\n        </div>\n      </div>\n      <div style=\"display: flex; flex-direction: column; gap: 16px;\">\n        <p style=\"margin: 0; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 26px; line-height: 1.5; color: #151613;\"><span style=\"font-family: 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.2px; color: #4d6987; margin-right: 16px; vertical-align: middle;\">등장</span>{{s1}}</p>\n        <p style=\"margin: 0; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 26px; line-height: 1.5; color: #151613;\"><span style=\"font-family: 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.2px; color: #b5501f; margin-right: 16px; vertical-align: middle;\">사건</span>{{s2}}</p>\n        <p style=\"margin: 0; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 26px; line-height: 1.5; color: #151613;\"><span style=\"font-family: 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.2px; color: #76629a; margin-right: 16px; vertical-align: middle;\">여운</span>{{s3}}</p>\n      </div>\n      <p style=\"margin: 0; font-size: 12px; line-height: 16px; color: #6b6c66;\">담당 작가: 김수진</p>\n    </div>\n  </section>\n\n  <section aria-labelledby=\"h-text\" style=\"display: flex; flex-wrap: wrap; gap: 32px 48px; max-width: 1120px; width: 100%; margin: 0 auto; padding-top: 32px; border-top: 1px solid #e2e0da;\">\n    <div style=\"flex: 0 0 160px; display: flex; flex-direction: column; gap: 4px;\">\n      <h2 id=\"h-text\" style=\"margin: 0; font-family: 'Chai Hwaljjak', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif; font-size: 28px; line-height: 1.3; font-weight: 700;\">글</h2>\n      <span style=\"font-size: 13px; line-height: 18px; color: #6b6c66;\">모아 쓰기 · {{name}}</span>\n    </div>\n    <div style=\"flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px;\">\n      <p style=\"margin: 0; max-width: 640px; font-family: 'SimKyungha', 'Noto Serif KR', 'Noto Serif CJK KR', serif; font-size: 26px; line-height: 1.8; color: #6b6c66;\">[마지막 글 — 앞에 쓴 문장 중 가장 마음에 드는 문장을 첫 줄로 두고, 선 · 색 · 소리에서 주운 문장을 모아 쓴 짧은 글]</p>\n      <p style=\"margin: 0; font-size: 12px; line-height: 16px; color: #6b6c66;\">담당 작가: 이성미</p>\n    </div>\n  </section>\n\n  <nav aria-label=\"다른 책\" style=\"display: flex; justify-content: space-between; align-items: center; max-width: 1120px; width: 100%; margin: 0 auto; padding-top: 24px; border-top: 1px solid #e2e0da; font-size: 13px; font-weight: 500;\">\n    <button class=\"pg\" type=\"button\" disabled=\"{{atStart}}\" onClick=\"{{goPrev}}\" style=\"{{prevStyle}}\">← {{prevNum}}</button>\n    <span aria-live=\"polite\" style=\"font-size: 12px; line-height: 16px; letter-spacing: 0.4px; color: #6b6c66;\">{{num}} / {{n}}</span>\n    <button class=\"pg\" type=\"button\" disabled=\"{{atEnd}}\" onClick=\"{{goNext}}\" style=\"{{nextStyle}}\">{{nextNum}} →</button>\n  </nav>\n  <footer class=\"credit\" style=\"display: flex; flex-direction: column; gap: 8px; max-width: 1120px; margin: 0 auto; width: 100%; padding-top: 20px; border-top: 1px solid #e2e0da; font-size: 12px; line-height: 18px; color: #6b6c66;\">\n    <p style=\"margin: 0;\">위 내용은 한국예술인복지재단에서 주최하는 2026년 예술로 협업사업의 일환으로 시행되었습니다.</p>\n    <p style=\"margin: 0; display: flex; flex-wrap: wrap; gap: 4px 24px;\"><span>주최│한국예술인복지재단</span><span>주관│바름책방</span><span>후원│문화체육관광부</span></p>\n    <p style=\"margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px;\"><span style=\"display: inline-flex; align-items: center; gap: 20px; padding: 4px 0;\"><img src=\"assets/logo-kawf.png\" alt=\"한국예술인복지재단\" style=\"display: block; height: 32px; width: auto;\"><img src=\"assets/logo-mcst.png\" alt=\"문화체육관광부\" style=\"display: block; height: 22px; width: auto;\"></span></p>\n    <p style=\"margin: 0;\">선 민예원 · 색 조순호 · 소리 김수진 · 글 이성미</p>\n  </footer>\n</div>\n";
-const c = new Component({});
-const __m = location.hash.match(/^#(\d{1,2})$/); if (__m) c.state.i = Math.max(0, Math.min((window.NPAGE_PEOPLE || []).length - 1, parseInt(__m[1], 10) - 1));
-const root = document.getElementById('root');
-c.__mount = () => {
-  const vals = c.renderVals();
-  const ae = document.activeElement; const fp = (ae && root.contains(ae)) ? __pathOf(ae, root) : null;
-  root.replaceChildren(__render(TPL, vals));
-  if (fp) { const t = __at(root, fp); if (t && t.focus) t.focus({ preventScroll: true }); }
-  if (location.pathname.endsWith('book.html')) history.replaceState(null, '', '#' + vals.num);
-};
-c.__mount();
+  function pageHTML(q, i, k) {
+    var S = q.sound, L = q.lines, nx = P[(i + 1) % N], pv = P[(i + N - 1) % N];
+    switch (k) {
+      case 0: return { cls: 'cv', style: coverBg(q.color), html:
+        coverArt(q, 1.4) +
+        '<div class="pgin" style="justify-content:space-between;padding:40px 40px 44px 52px">' +
+          '<p style="margin:0;font-size:12px;font-weight:600;letter-spacing:.3px;color:#2c2d29">도시 산책자의 N페이지 · 원주</p>' +
+          '<div style="display:flex;flex-direction:column;gap:14px"><p style="margin:0;font-family:\'Npage Alley\',\'Noto Sans KR\',sans-serif;font-size:50px;line-height:1.22;color:#151613">' + esc(q.title) + '</p>' +
+          '<p style="margin:0;display:flex;align-items:center;gap:8px;font-size:14px;color:#2c2d29"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #151613;background:' + q.color + '"></span>' + q.num + ' · ' + esc(q.name) + '</p></div>' +
+        '</div>' };
+      case 1: return { cls: '', style: 'background:' + tint(q.color, 22) + ';', html:
+        '<div class="pgin" style="gap:24px;padding-top:52px">' +
+          '<p style="margin:0;font-size:12px;line-height:18px;color:#6b6c66">도시 산책자의 N페이지<br>원주에서 문장 좀 줍겠습니다</p>' +
+          '<div style="display:flex;flex-direction:column;gap:10px"><p style="margin:0;font-family:\'Npage Alley\',\'Noto Sans KR\',sans-serif;font-size:38px;line-height:1.25">' + esc(q.title) + '</p>' +
+          '<p style="margin:0;font-size:14px;color:#2c2d29">지은이 ' + esc(q.name) + '</p>' +
+          '<p style="margin:0;font-size:12px;color:#6b6c66">2026년 11월 14일, 원주 구도심 골목에서</p></div>' +
+          '<div style="margin-top:auto;display:flex;flex-direction:column;gap:4px"><p style="margin:0;font-size:12px;font-weight:600;color:#6b6c66">차례</p><ul class="toc">' +
+          SECS.map(function (s) { return '<li><button type="button" data-go="' + s.page + '"><span>' + s.key + (s.sub ? ' · ' + s.sub : '') + '</span><i></i><span>' + s.page + '</span></button></li>'; }).join('') +
+          '</ul></div></div>' };
+      case 2: case 3:
+        var li = L[k - 2], near = k === 2;
+        var img = '<div class="ph-wrap" style="transform:rotate(' + (near ? '-1.4' : '1.2') + 'deg)">' + clipSvg(near ? 26 : 120) + '<img src="' + li.img + '" alt="' + esc(q.name + ' · ' + (near ? '근경' : '원경') + ' 선 드로잉') + '" width="640" height="1660"></div>';
+        var txt = '<div style="display:flex;flex-direction:column;gap:10px;justify-content:flex-end;min-width:0"><p style="margin:0;font-size:12px;font-weight:600;color:#6b6c66">' + (near ? '근경' : '원경') + '</p><p class="sim" style="margin:0;font-size:21px;line-height:1.55">' + esc(li.text) + '</p>' + (near ? '' : '<p class="credit-s" style="margin:8px 0 0">직유 · 담당 작가 민예원</p>') + '</div>';
+        return { cls: '', style: '', html:
+          '<div class="pgin"><div class="rh"><span>선 · 직유</span><span>' + esc(q.name) + '</span></div>' +
+          '<div style="flex:1;display:grid;grid-template-columns:' + (near ? '170px 1fr' : '1fr 170px') + ';gap:26px;align-items:end;min-height:0;padding-bottom:18px">' + (near ? img + txt : txt + img) + '</div>' +
+          '<span class="pno">' + k + '</span></div>' };
+      case 4: return { cls: '', style: '', html:
+        '<div class="pgin"><div class="rh"><span>색 · 은유</span><span>' + esc(q.name) + '</span></div>' +
+        '<div style="display:flex;justify-content:center;padding-top:6px"><button type="button" class="zoom" data-zoom="c" aria-label="' + esc(q.num + ' ' + q.name + '의 조색 크게 보기') + '"><span class="ph-wrap" style="display:block;width:196px;transform:rotate(-1.1deg)"><span class="tape" style="left:61px"></span><img src="' + (q.paintS || '') + '" alt="' + esc(q.name + '이(가) 물감을 섞어 칠한 색') + '" width="480" height="640"></span></button></div>' +
+        '<div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">' + (q.metaphor || []).map(function (t) { return '<p class="sim" style="margin:0;font-size:21px;line-height:1.5">' + esc(t) + '</p>'; }).join('') + '</div>' +
+        '<p class="credit-s" style="margin:auto 0 18px">은유 · 담당 작가 조순호</p><span class="pno">4</span></div>' };
+      case 5: return { cls: '', style: '', html:
+        '<div class="pgin"><div class="rh"><span>소리 · 서사</span><span>' + esc(q.name) + '</span></div>' +
+        '<div style="flex:1;display:grid;grid-template-columns:186px 1fr;gap:26px;align-items:start;min-height:0;padding-top:10px">' +
+          '<button type="button" class="zoom" data-zoom="1" aria-label="' + esc(q.num + ' ' + q.name + '의 시간기록 크게 보기') + '"><span class="ph-wrap" style="transform:rotate(.9deg)"><span class="tape" style="left:56px"></span><img src="assets/rec-' + q.num + '-s.jpg" alt="' + esc(q.name + '이(가) 녹음기 화면의 시간을 보며 손으로 적은 시간기록지') + '" width="320" height="830"></span></button>' +
+          '<div style="display:flex;flex-direction:column;gap:12px;padding-top:6px"><p style="margin:0;font-size:12px;font-weight:600;color:#6b6c66">시간기록</p>' +
+          '<p style="margin:0;font-size:13px;line-height:20px;color:#4a4b46">녹음기 화면의 시간을 보며 손으로 적었습니다. 누르면 크게 보입니다.</p>' +
+          '<ul style="list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px">' +
+            '<li style="display:flex;justify-content:space-between;color:#4d6987"><span>등장</span><span>0:00</span></li>' +
+            '<li style="display:flex;justify-content:space-between;color:#b5501f"><span>사건</span><span>' + fmt(S.ev) + '</span></li>' +
+            '<li style="display:flex;justify-content:space-between;color:#76629a"><span>여운</span><span>' + fmt(S.yo) + '</span></li>' +
+            '<li style="display:flex;justify-content:space-between;color:#6b6c66"><span>끝</span><span>' + fmt(S.dur) + '</span></li></ul></div>' +
+        '</div><span class="pno">5</span></div>' };
+      case 6:
+        var roleAt = function (t) { return t < S.ev ? 0 : t < S.yo ? 1 : 2; };
+        var bars = S.wave.map(function (v, j) { return '<span class="b" style="height:' + Math.max(4, Math.round(v * 40)) + 'px;background:' + ROLES[roleAt((j + .5) / S.wave.length * S.dur)].c + '"></span>'; }).join('');
+        return { cls: '', style: '', html:
+          '<div class="pgin" style="gap:16px"><div class="rh"><span>소리 · 서사</span><span>' + esc(q.name) + '</span></div>' +
+          '<div style="display:flex;align-items:center;gap:14px"><button type="button" class="play" data-play="1" aria-label="' + esc(q.title + ' 녹음 듣기') + '"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="pi" d="M8 5l11 7-11 7z" fill="currentColor"/></svg></button>' +
+          '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><div class="wv" aria-hidden="true">' + bars + '<span class="hd"></span></div>' +
+          '<div style="display:flex;justify-content:space-between;font-size:11px;color:#6b6c66"><span>0:00</span><span style="color:#b5501f">사건 ' + fmt(S.ev) + '</span><span style="color:#76629a">여운 ' + fmt(S.yo) + '</span><span>' + fmt(S.dur) + '</span></div></div></div>' +
+          '<div style="display:flex;flex-direction:column;gap:12px;overflow:auto;min-height:0">' +
+          ROLES.map(function (R, r) { var t = S.lines[r] && S.lines[r].trim(); return '<div><p style="margin:0 0 2px;font-size:12px;font-weight:600;color:' + R.c + '">' + R.n + '</p>' + (t ? '<p class="sim" style="margin:0;font-size:18px;line-height:1.55">' + esc(t) + '</p>' : '<p style="margin:0;font-size:13px;color:#6b6c66">적힌 문장이 없습니다.</p>') + '</div>'; }).join('') +
+          '</div><p class="credit-s" style="margin:auto 0 18px">서사 · 담당 작가 김수진</p><span class="pno">6</span></div>' };
+      case 7:
+        var T = q.text || [], fs = textFs(T);
+        return { cls: '', style: '', html:
+        '<div class="pgin"><div class="rh"><span>글 · 모아 쓰기</span><span>' + esc(q.name) + '</span></div>' +
+        '<div class="ftx" style="font-size:' + fs + 'px">' + T.map(function (t) { return '<p class="sim">' + esc(t) + '</p>'; }).join('') + '</div>' +
+        '<p class="credit-s" style="margin:auto 0 18px">모아 쓰기 · 담당 작가 이성미</p><span class="pno">7</span></div>' };
+      case 8:
+        var pk = PK[q.num] || { pub: '', date: '', copy: '' };
+        return { cls: '', style: 'background:#fbfaf6;', html:
+          '<div class="pk"><span class="dots" aria-hidden="true"></span><img class="ht" src="assets/cover-dots.jpg" alt="" aria-hidden="true">' +
+          '<div style="position:relative;padding:40px 40px 0 44px;display:flex;flex-direction:column;gap:22px">' +
+            '<p style="margin:0;font-family:\'Chai Hwaljjak\',\'Noto Sans KR\',sans-serif;font-size:17px;letter-spacing:5px">도시 산책자의 N 페이지</p>' +
+            '<dl>' +
+              '<dt>도서명</dt><dd class="hw">' + esc(q.title) + '</dd>' +
+              '<dt>저　자</dt><dd class="hw">' + esc(pk.author || q.name) + '</dd>' +
+              '<dt>출판사</dt><dd class="hw">' + esc(pk.pub) + '</dd>' +
+              '<dt>발행일</dt><dd class="hw">' + esc(pk.date) + '</dd>' +
+              '<dt>저작권</dt><dd>© <span class="sim" style="font-size:17px">' + esc(pk.copy) + '</span>' + (pk.copy ? ', ' : ' ') + '2026</dd>' +
+              '<dt>주　관</dt><dd style="font-weight:600">바름책방</dd>' +
+              '<dt>주　최</dt><dd style="font-weight:600">한국예술인복지재단</dd>' +
+              '<dt>후　원</dt><dd style="font-weight:600">문화체육관광부</dd>' +
+            '</dl>' +
+            '<p style="margin:2px 0 0;font-size:11px;line-height:16px;color:#2c2d29">웹 아카이브 페이지<br>https://wonju-npage.github.io/</p>' +
+          '</div><span class="pno" style="color:#fff;mix-blend-mode:difference">8</span></div>' };
+      case 9: return { cls: 'bc', style: coverBg(q.color), html:
+        '<div class="pgin" style="justify-content:flex-end;gap:24px;padding:44px 44px 40px 40px">' +
+          '<p style="margin:0;font-size:13px;line-height:20px;color:#2c2d29">' + esc(q.name) + '의 책은 여기까지입니다.<br>다음 산책자의 책을 펼쳐 보세요.</p>' +
+          '<button type="button" class="nextbk" data-book="' + ((i + 1) % N) + '"><span class="mini" style="position:relative;overflow:hidden;' + coverBg(nx.color) + '">' + coverArt(nx, 2) + '</span>' +
+          '<span style="display:flex;flex-direction:column;justify-content:flex-end;gap:4px"><span style="font-size:12px;font-weight:600;color:#2c2d29">다음 책 →</span><span style="font-family:\'Npage Alley\',\'Noto Sans KR\',sans-serif;font-size:24px;line-height:1.25">' + esc(nx.title) + '</span><span style="font-size:13px;color:#2c2d29">' + nx.num + ' · ' + esc(nx.name) + '</span></span></button>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;border-top:1px solid rgba(21,22,19,.18);padding-top:8px"><button type="button" class="lnk" data-book="' + ((i + N - 1) % N) + '">← ' + pv.num + ' ' + esc(pv.name) + '</button><button type="button" class="lnk" data-go="0">처음으로</button><a href="shelf.html" style="padding:10px 0;color:#2c2d29">책장으로</a></div>' +
+          '<p style="margin:0;font-size:11px;line-height:16px;color:#2c2d29;opacity:.8">도시 산책자의 N페이지 · 2026. 11. 14. 원주 · 바름책방</p>' +
+        '</div>' };
+    }
+  }
+
+  function build(i) {
+    var q = P[i]; cur = i;
+    var h = '<div class="base l"></div><div class="base r"></div>';
+    for (var k = 0; k < NL; k++) {
+      var f = pageHTML(q, i, 2 * k), b = pageHTML(q, i, 2 * k + 1);
+      h += '<div class="leaf" data-k="' + k + '"><div class="face front ' + f.cls + '" data-p="' + (2 * k) + '" style="' + f.style + '">' + f.html + '</div><div class="face back ' + b.cls + '" data-p="' + (2 * k + 1) + '" style="' + b.style + '">' + b.html + '</div></div>';
+    }
+    h += SECS.map(function (s, j) { return '<button type="button" class="tab r" data-go="' + s.page + '" aria-label="' + s.key + (s.sub ? ' · ' + s.sub : '') + ' 펼치기" style="top:' + (70 + j * 104) + 'px;left:920px;background:' + tint(q.color, 50) + '">' + s.key + '</button>'; }).join('');
+    book.innerHTML = h;
+    leaves = [].slice.call(book.querySelectorAll('.leaf'));
+    tabs = [].slice.call(book.querySelectorAll('.tab'));
+    chips.innerHTML = SECS.map(function (s) { return '<button type="button" data-go="' + s.page + '">' + s.key + '</button>'; }).join('');
+    document.getElementById('who').textContent = q.num + ' · ' + q.name;
+    document.getElementById('bk-title').textContent = q.title + ' — ' + q.name + '의 책';
+    document.title = q.title + ' · ' + q.name + ' — 도시 산책자의 N페이지';
+    if (location.pathname.endsWith('book.html')) history.replaceState(null, '', '#' + q.num);
+    m = 0; lastK = 0;
+    leaves.forEach(function (L, k) { (L._t || []).forEach(clearTimeout); L._t = []; L._f = false; L.style.transition = 'none'; L.style.transform = 'perspective(2400px) rotateY(0deg)'; L.style.zIndex = 100 - k; });
+    book.style.transition = 'none';
+    apply(true);
+    void book.offsetWidth;
+    book.style.transition = ''; leaves.forEach(function (L) { L.style.transition = ''; });
+  }
+
+  function kOf(mm) { if (mm === 0) return 0; return mm % 2 === 1 ? (mm + 1) / 2 : mm / 2; }
+  function camX(mm) {
+    var k = kOf(mm);
+    if (!single) return k === 0 ? -PW / 2 : k === NL ? PW / 2 : 0;
+    return mm % 2 === 1 ? PW / 2 : -PW / 2;
+  }
+  function visiblePages(mm) {
+    if (single) return [mm];
+    var k = kOf(mm), v = [];
+    if (k > 0) v.push(2 * k - 1);
+    if (k < NL) v.push(2 * k);
+    return v;
+  }
+
+  function stopAudio() {
+    clearInterval(iv); iv = null; if (window.NPA) window.NPA.stop();
+    book.querySelectorAll('[data-play]').forEach(function (b) { b.querySelector('.pi').setAttribute('d', 'M8 5l11 7-11 7z'); b.setAttribute('aria-label', P[cur].title + ' 녹음 듣기'); b._on = false; });
+    book.querySelectorAll('.wv .hd').forEach(function (h) { h.style.opacity = '0'; });
+  }
+
+  function apply(instant) {
+    var k = kOf(m), prevK = lastK; lastK = k;
+    var dur = (rm && rm.matches) || instant ? 0 : (Math.abs(k - prevK) > 1 ? 620 : 900);
+    leaves.forEach(function (L, j) {
+      var want = j < k;
+      if (L._f === want) return;
+      var order = want ? j - prevK : prevK - 1 - j;
+      var delay = dur ? Math.max(0, order) * 130 : 0;
+      L._f = want;
+      (L._t || []).forEach(clearTimeout); L._t = [];
+      L.style.transitionDuration = dur + 'ms';
+      L.style.transitionDelay = delay + 'ms';
+      L.style.transform = 'perspective(2400px) rotateY(' + (want ? -180 : 0) + 'deg)';
+      if (!dur) { L.style.zIndex = want ? 100 + j : 100 - j; return; }
+      L._t.push(setTimeout(function () { L.style.zIndex = 300 + j; }, delay));
+      L._t.push(setTimeout(function () { L.style.zIndex = want ? 100 + j : 100 - j; }, delay + dur));
+    });
+    book.classList.toggle('open', k > 0);
+    book.classList.toggle('end', k === NL);
+    book.style.transition = 'transform ' + dur + 'ms cubic-bezier(.33,.08,.18,1), opacity .35s ease';
+    book.style.transform = 'translateX(' + camX(m) + 'px)';
+    var vis = visiblePages(m);
+    book.querySelectorAll('.face').forEach(function (F) { var on = vis.indexOf(+F.dataset.p) >= 0; F.inert = !on; F.setAttribute('aria-hidden', on ? 'false' : 'true'); });
+    var here = function (sp) { return vis.indexOf(sp) >= 0 || (sp === 2 && vis.indexOf(3) >= 0) || (sp === 5 && vis.indexOf(6) >= 0); };
+    tabs.forEach(function (T, j) {
+      var sp = SECS[j].page, passed = k > Math.floor(sp / 2);
+      T.classList.toggle('r', !passed); T.classList.toggle('l', passed);
+      T.style.transitionDuration = dur + 'ms';
+      T.style.left = (passed ? -TABW : 2 * PW) + 'px';
+      var h = here(sp);
+      T.style.background = h ? P[cur].color : tint(P[cur].color, 50);
+      T.setAttribute('aria-current', h ? 'true' : 'false');
+    });
+    [].forEach.call(chips.children, function (b) { b.setAttribute('aria-current', here(+b.dataset.go) ? 'true' : 'false'); });
+    bPrev.disabled = m === 0; bNext.disabled = single ? m >= 9 : k >= NL;
+    var lab;
+    if (single) lab = m === 0 ? '표지 · 누르면 펼쳐집니다' : PAGE_SEC[m] + (m < 9 ? ' · ' + m + '쪽' : '');
+    else lab = k === 0 ? '표지 · 누르면 펼쳐집니다' : k === NL ? '뒤표지' : PAGE_SEC[2 * k - 1] + (PAGE_SEC[2 * k] !== PAGE_SEC[2 * k - 1] ? ' · ' + PAGE_SEC[2 * k] : '') + ' · ' + (2 * k - 1) + '–' + (2 * k) + '쪽';
+    pos.textContent = lab;
+    stopAudio();
+  }
+
+  function go(mm) { mm = Math.max(0, Math.min(9, mm)); if (mm === m) return; m = mm; apply(false); }
+  function step(d) {
+    if (single) { go(m + d); return; }
+    var nk = Math.max(0, Math.min(NL, kOf(m) + d));
+    go(nk === 0 ? 0 : nk === NL ? 9 : 2 * nk - 1);
+  }
+  function goPage(p) { if (single) { go(p); return; } var k = p % 2 === 1 ? (p + 1) / 2 : p / 2; go(k === 0 ? 0 : k === NL ? 9 : 2 * k - 1); }
+
+  function layout() {
+    var w = stage.parentNode.clientWidth, was = single;
+    single = w < 760;
+    var W0 = single ? PW : 2 * PW + 2 * TABW + 16;
+    var availH = Math.max(380, (window.innerHeight || 800) - (single ? 270 : 286));
+    scale = Math.min(single ? 1 : 1.12, w / W0, availH / PH);
+    stage.classList.toggle('single', single);
+    stage.style.width = (W0 * scale) + 'px'; stage.style.height = (PH * scale + 26) + 'px';
+    scaler.style.width = W0 + 'px'; scaler.style.height = PH + 'px'; scaler.style.transform = 'scale(' + scale + ')';
+    book.style.left = ((W0 - 2 * PW) / 2) + 'px';
+    tabs.forEach(function (T) { T.style.display = single ? 'none' : ''; });
+    if (was && !single && m % 2 === 0 && m > 0 && m < 9) m = m - 1;
+    lastK = kOf(m);
+    apply(true);
+  }
+
+  /* 클릭 · 키 · 밀기 */
+  var sx = null, sy = null, moved = false;
+  book.addEventListener('click', function (e) {
+    var t = e.target.closest('button,a');
+    if (t) {
+      if (t.dataset.go != null) { goPage(+t.dataset.go); return; }
+      if (t.dataset.book != null) { swapBook(+t.dataset.book); return; }
+      if (t.dataset.zoom) { openZoom(t.dataset.zoom); return; }
+      if (t.dataset.play) { togglePlay(t); return; }
+      return;
+    }
+    if (moved) return;
+    var face = e.target.closest('.face'); if (!face) return;
+    var p = +face.dataset.p;
+    if (p === 0) { step(1); return; }
+    if (single) step(1); else step(p % 2 === 0 ? 1 : -1);
+  });
+  chips.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) goPage(+b.dataset.go); });
+  bPrev.addEventListener('click', function () { step(-1); });
+  bNext.addEventListener('click', function () { step(1); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.hidden) { if (e.key === 'Escape') closeZoom(); return; }
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  });
+  stage.addEventListener('pointerdown', function (e) { sx = e.clientX; sy = e.clientY; moved = false; });
+  stage.addEventListener('pointerup', function (e) {
+    if (sx == null) return; var dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.3) { moved = true; step(dx < 0 ? 1 : -1); setTimeout(function () { moved = false; }, 60); }
+  });
+
+  function swapBook(j) {
+    stopAudio();
+    book.classList.add('swap');
+    setTimeout(function () { build(j); layout(); try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {} requestAnimationFrame(function () { book.classList.remove('swap'); }); }, 360);
+  }
+
+  function togglePlay(btn) {
+    var S = P[cur].sound;
+    if (btn._on) { stopAudio(); return; }
+    stopAudio(); btn._on = true;
+    btn.querySelector('.pi').setAttribute('d', 'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z'); btn.setAttribute('aria-label', P[cur].title + ' 녹음 멈춤');
+    window.NPA.play(S.src, 0, null, { onend: stopAudio });
+    var hd = book.querySelector('.face[data-p="6"] .wv .hd');
+    iv = setInterval(function () { var p = window.NPA.pos(); if (hd && p != null) { hd.style.opacity = '1'; hd.style.left = Math.min(100, p / S.dur * 100).toFixed(2) + '%'; } }, 120);
+  }
+
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'), lastFocus = null;
+  function openZoom(kind) {
+    var q = P[cur]; lastFocus = document.activeElement;
+    if (kind === 'c') {
+      lbImg.src = q.paint || ''; lbImg.alt = q.name + '이(가) 물감을 섞어 칠한 색';
+      document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 조색';
+    } else {
+      lbImg.src = 'assets/rec-' + q.num + '.jpg'; lbImg.alt = q.name + '이(가) 녹음기 화면의 시간을 보며 손으로 적은 시간기록지';
+      document.getElementById('lb-cap').textContent = q.num + ' ' + q.title + ' · ' + q.name + ' — 시간기록';
+    }
+    lb.hidden = false; document.documentElement.style.overflow = 'hidden'; lb.querySelector('.x').focus();
+  }
+  function closeZoom() { lb.hidden = true; document.documentElement.style.overflow = ''; if (lastFocus) lastFocus.focus({ preventScroll: true }); }
+  lb.querySelector('.bg').addEventListener('click', closeZoom);
+  lb.querySelector('.x').addEventListener('click', closeZoom);
+
+  var h0 = location.hash.match(/^#(\d{1,2})$/);
+  build(h0 ? Math.max(0, Math.min(N - 1, parseInt(h0[1], 10) - 1)) : 0);
+  layout();
+  var rt = null;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 80); });
+  window.addEventListener('hashchange', function () { var h = location.hash.match(/^#(\d{1,2})$/); if (h) { var j = parseInt(h[1], 10) - 1; if (j !== cur && j >= 0 && j < N) swapBook(j); } });
+})();
 </script>
 </body>
 </html>
